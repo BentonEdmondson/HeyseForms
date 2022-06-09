@@ -29,7 +29,7 @@ HTTP 308 Permanent Redirect to `/home`
 
 #### GET `/responses/{uniqname}`
 
-HTTP 308 Permanent Redirect to `/responses/{uniqname}/{entry}` where `entry` is the latest submitted entry
+HTTP 307 Temporary Redirect to `/responses/{uniqname}/{entry}` where `entry` is the latest submitted entry
 
 #### GET `/responses/{uniqname}/{entry}`
 
