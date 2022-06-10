@@ -6,8 +6,8 @@
     {% include 'styles.j2' %}
   </head>
   <body>
-    <main>
-      {% include 'header.j2' %}
+    <header>{% include 'header.j2' %}</header>
+    <main>      
       <h1>Settings</h1>
       <input type="text" placeholder="Enter the URL of Google Spreadsheet here to link the spreadsheet with this application"></input>
 
@@ -15,7 +15,7 @@
       <input type="text" placeholder="Add interns to your watchlist using their uniqnames"></input>
 
       <h2>Current Interns</h2>
-      <input type="text" placeholder="Add interns to your watchlist using their uniqnames"></input>
+      <input type="text" placeholder="Add interns to your watchlist using their uniqnames"></input><br><br>
       <table>
         <tr>
           <td>Intern 1</td>
@@ -28,13 +28,15 @@
         </tr>
       </table>
 
-      <h2>Email Reminder</h2>
+      <h2>Email Reminder</h2><br>
       <label class="switch">
         <input type="checkbox" checked>
         <span class="slider round"></span>
       </label>
     </main>
-
-    {% include 'footer.j2' %}
+    <footer>
+      {% include 'footer.j2' %}
+    </footer>
   </body>
+  
 </html>
