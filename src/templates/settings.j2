@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>HeyseForms</title>
+    {% include 'styles.j2' %}
+  </head>
+  <body>
+    <main>
+      {% include 'header.j2' %}
+      <h1>Settings</h1>
+      <input>Enter the URL of Google Spreadsheet here to link the spreadsheet with this application</input>
+
+      <h2>Add Interns</h2>
+      <input>Add interns to your watchlist using their uniqnames</input>
+
+      <h2>Current Interns</h2>
+      <input>Add interns to your watchlist using their uniqnames</input>
+      <dl>
+        <dt>Intern 1</dt>
+        <dt>Intern 2</dt>
+        <dt>Intern 3</dt>
+      </dl>
+
+      <h2>Email Reminder</h2>
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+    </main>
+
+    {% include 'footer.j2' %}
+  </body>
+</html>
