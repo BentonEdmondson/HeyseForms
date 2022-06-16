@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "base.html" %}
 
 {% block title %}Settings – HeyseForms{% endblock %}
@@ -42,3 +43,46 @@ Add interns to your watchlist using their uniqnames
   <span class="slider round"></span>
 </label>
 {% endblock %}
+=======
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>HeyseForms</title>
+    {% include 'styles.j2' %}
+  </head>
+  <body>
+    <header>{% include 'header.j2' %}</header>
+    
+    <main>      
+      <h1>Settings</h1>
+      <input type="text" placeholder="Enter the URL of Google Spreadsheet here to link the spreadsheet with this application"></input>
+
+      <h2>Add Interns</h2>
+      <input type="text" placeholder="Add interns to your watchlist using their uniqnames"></input>
+
+      <h2>Current Interns</h2>
+      <input type="text" placeholder="Add interns to your watchlist using their uniqnames"></input><br><br>
+      <table>
+        <tr>
+          <td>Intern 1</td>
+        </tr>
+        <tr>
+          <td>Intern 2</td>
+        </tr>
+        <tr>
+          <td>Intern 3</td>
+        </tr>
+      </table>
+      
+      <h2>Email Reminder</h2>
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+    </main>    
+    
+    <footer>{% include 'footer.j2' %}</footer>
+  </body>
+</html>
+>>>>>>> c7b0dc9d199fdc56a0dcee7bcad95c114962849a
