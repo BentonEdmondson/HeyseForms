@@ -1,33 +1,30 @@
+{% extends "base.html" %}
 
+{% block title %}Responses – HeyseForms{% endblock %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>HeyseForms</title>
-    {% include 'styles.j2' %}
-  </head>
-  <body>
-    {% include 'header.j2' %}
+{% block breadcrumb %}
+<li><a href="/">HeyseForms</a></li>
+<li><a href="/responses">Responses</a></li>
+<li><a href="/responses/{{ uniqname }}">{{ uniqname }}</a></li>
+<li><a href="/responses/{{ uniqname }}/{{ entry }}">Entry #{{ entry }}</a></li>
+{% endblock %}
 
-    <dl>
-      <dt><strong>Uniqname</strong></dt>
-      <dd>{{ uniqname }}</dd>
-      <dt><strong>Email</strong></dt>
-      <dd><a href="mailto:{{ email }}">{{ email }}</a></dd>
-    </dl>
+{% block main %}
+<dl>
+  <dt><strong>Uniqname</strong></dt>
+  <dd>{{ uniqname }}</dd>
+  <dt><strong>Email</strong></dt>
+  <dd><a href="mailto:{{ email }}">{{ email }}</a></dd>
+</dl>
 
-    <main>
-      <dl>
-        <dt>What are three things going well in your life?</dt>
-        <dd>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</dd>
-        <dt>Anything else?</dt>
-        <dd>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</dd>
-      </dl>
-      <input></input>
-    </main>
+<dl>
+  <dt>What are three things going well in your life?</dt>
+  <dd>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</dd>
+  <dt>Anything else?</dt>
+  <dd>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</dd>
+</dl>
 
-    {% include 'footer.j2' %}
-  </body>
-</html>
-
+<label>
+Give a response<br/>
+<textarea></textarea>
+{% endblock %}

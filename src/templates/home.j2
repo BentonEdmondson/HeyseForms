@@ -1,28 +1,22 @@
+{% extends "base.html" %}
 
+{% block title %}Home – HeyseForms{% endblock %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>HeyseForms</title>
-    {% include 'styles.j2' %}
-  </head>
-  <body>
-    {% include 'header.j2' %}
+{% block breadcrumb %}
+<li><a href="/">HeyseForms</a></li>
+<li><a href="/home">Home</a></li>
+{% endblock %}
 
-    <h1>Welcome!</h1>
+{% block main %}
+<h1>Welcome!</h1>
 
-    <p>Click on your interns to see their responses</p>
+<p>Click on your interns to see their responses</p>
 
-    <ul>
-      <li><a href="/responses/benton">Intern 1</a></li>
-      <li><a href="/responses/benton">Intern 2</a></li>
-      <li><a href="/responses/benton">Intern 3</a></li>
-      <li><a href="/responses/benton">Intern 4</a></li>
-      <li><a href="/responses/benton">Intern 5</a></li>
-    </ul>
-
-    {% include 'footer.j2' %}
-  </body>
-</html>
-
+<ul>
+  <li><a href="/responses/benton">Intern 1</a></li>
+  <li><a href="/responses/benton">Intern 2</a></li>
+  <li><a href="/responses/benton">Intern 3</a></li>
+  <li><a href="/responses/benton">Intern 4</a></li>
+  <li><a href="/responses/benton">Intern 5</a></li>
+</ul>
+{% endblock %}

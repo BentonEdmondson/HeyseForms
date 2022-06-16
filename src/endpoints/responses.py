@@ -14,6 +14,8 @@ def get_default_response(uniqname: str):
 def get_response(uniqname: str, entry: int):
     return render_template(
         'responses.j2',
+        entry=entry,
         uniqname=uniqname,
         email=uniqname+'@umich.edu'
     )
+    
