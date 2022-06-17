@@ -13,18 +13,52 @@
 <p><strong>Uniqname</strong>: {{ uniqname }}</p>
 <p><strong>Email</strong>: <a href="mailto:{{ email }}">{{ email }}</a></p>
 
-<div style="overflow-y:scroll;height:300px;">
-	<dl>
-  	<dt>What are three things going well in your life?</dt>
-  	<dd>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</dd>
-  	<dt>Anything else?</dt>
-  	<dd>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</dd>
-		<dt>What projects or task are you looking forward? How can we help you?</dt>
-		<dd>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</dd>
-	</dl>
+<div class="tab">
+	<button class="tablinks" onclick="openResponse('1')" id="1">Entry 1</button>
+	<button class="tablinks" onclick="openResponse('2')" id="2">Entry 2</button>
 </div>
 
-<label>
-Give a response<br/>
-<textarea></textarea>
+
+<table>
+	<tr>
+		<td>
+			<div style="overflow-y:scroll;height:300px;">
+				<div id="Entry 1" class="tabcontent">
+					<dl>
+  					<dt>What are three things going well in your life?</dt>
+  					<dd>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</dd>
+  					<br>
+						<dt>Anything else?</dt>
+  					<dd>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</dd>
+						<br>
+						<dt>What projects or task are you looking forward? How can we help you?</dt>
+						<dd>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</dd>
+					</dl>
+				</div>
+
+				<div id="Entry 2" class="tabcontent">
+					<dl>
+						<dt>Some test</dt>
+						<dd>Some test again</dd>
+					</dl>
+				</div>
+			</div>
+		</td>
+		<td>
+			<label>
+				Give a response<br/>
+				<textarea></textarea>
+		</td>
+	</tr>
+</table>
+
+<script>
+	document.getElementById("Entry " + {{entry}}).style.display = "block";
+	var current = document.getElementById({{entry}});
+	current.className += " active";
+
+	function openResponse(num) {
+		window.location.replace(num);		
+	}
+</script>
 {% endblock %}
