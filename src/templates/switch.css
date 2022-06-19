@@ -49,6 +49,20 @@ input:checked+.slider:before {
     transform: translateX(26px);
 }
 
+.form-settings {  
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+.form-settings input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
 /* Rounded sliders */
 .slider.round {
     border-radius: 34px;

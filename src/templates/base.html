@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block title %}{% endblock %}</title>
 	{% include "styles.j2" %}
 	<style>
@@ -70,11 +71,9 @@
 		</div>
 		<div class="row">
 
-			<section class="col-sm-6" role="main" aria-label="Page Content">
+			{% block main %}{% endblock %}
 
-				{% block main %}{% endblock %}
-
-			</section>
+			<!-- <section class="col-sm-6" role="main" aria-label="Page Content"></section> -->
 
 		</div>
 	</div>
