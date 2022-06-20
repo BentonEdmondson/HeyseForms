@@ -13,7 +13,6 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID of HeyseForms sample spreadsheet.
 HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1XU0bb1FJIBJdvAWPYX-tDECYBmYVw01GNgNTDx9B7Do'
-# SAMPLE_RANGE_NAME = 'Class Data!A2:E'
 EMAIL_COLUMN_INDEX = 1
 INTERNS_COLUMN_INDEX = 3
 
@@ -69,7 +68,7 @@ def get_intern_entries(intern_email: str, creds: Credentials) -> list:
 
 
 @check_credentials
-def get_all_supervisor_data(creds: Credentials):
+def get_all_supervisor_data(creds: Credentials) -> list:
     try:
         service = build('sheets', 'v4', credentials=creds)
         sheet = service.spreadsheets()
@@ -86,7 +85,7 @@ def get_all_supervisor_data(creds: Credentials):
         return
 
 
-def get_supervisor_interns(supervisor_email: str):
+def get_supervisor_interns(supervisor_email: str) -> list:
     values = get_all_supervisor_data()
     for row in values:
         if row[EMAIL_COLUMN_INDEX] == supervisor_email:
@@ -95,7 +94,7 @@ def get_supervisor_interns(supervisor_email: str):
     return []
 
 
-def get_supervisor_notifcation(supervisor_email: str):
+def get_supervisor_notifcation(supervisor_email: str) -> bool:
     values = get_all_supervisor_data()
     for row in values:
         if row[EMAIL_COLUMN_INDEX] == supervisor_email:
@@ -107,7 +106,7 @@ def get_supervisor_notifcation(supervisor_email: str):
 
 
 if __name__ == '__main__':
-    # entries = get_intern_entries(intern_email="atharvak@umich.edu")
-    # print(entries)
+    entries = get_intern_entries(intern_email="atharvak@umich.edu")
+    print(entries)
     supervisor = get_supervisor_notifcation(supervisor_email="dheyse@umich.edu")
     print(supervisor)
