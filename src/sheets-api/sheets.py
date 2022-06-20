@@ -12,7 +12,7 @@ from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID of HeyseForms sample spreadsheet.
-HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1XU0bb1FJIBJdvAWPYX-tDECYBmYVw01GNgNTDx9B7Do'
+HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
 EMAIL_COLUMN_INDEX = 1
 INTERNS_COLUMN_INDEX = 3
 
