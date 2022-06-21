@@ -72,11 +72,23 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
+.response {
+	border: 2px solid #ddd;
+	border-radius: 5px;
+	background-color: #ddd;
+	padding: 10px;	
+}
+
+dt {
+	padding: 0px 0px 10px;
+}
+
 /* Style tab */
 .tab {
 	overflow: hidden;
-	border: 1px solid #ccc;
+	border: none;
 	background-color: #f1f1f1;
+	border-radius: 10px 10px 0px 0px;
 }
 
 .tab button {
@@ -87,6 +99,7 @@ input:checked+.slider:before {
 	cursor: pointer;
 	padding: 14px 16px;
 	transition: 0.3;
+	border-radius: 10px 10px 0px 0px;
 }
 
 .tab button:hover {
@@ -99,16 +112,15 @@ input:checked+.slider:before {
 
 .tabcontent {
 	display: none;
-	padding: 6px 12px;
-	/* border: 1px solid #ccc;
-	border-top: none; */
+	padding: 6px 20px;
+	background-color: #f1f1f1; 
 }
 
 .dropdown {
     float: right;
-  }
+ }
   
-  .dropdown .dropbtn {
+.dropdown .dropbtn {
     font-size: 16px;  
     border: none;
     outline: none;
@@ -117,34 +129,43 @@ input:checked+.slider:before {
     font-family: inherit;
     margin: 0;
     position: static;
-  }
+}
 
-  .dropdown:hover .dropbtn {
+.dropdown:hover .dropbtn {
     background-color: grey;
 }
 
 .dropdown-content {
     display: none;
     position: static;
-    right:5px;
+    right: 5px;
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-  }
+}
   
-  .dropdown-content a {
+.dropdown-content a {
     float: none;
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
-  }
+}
   
-  .dropdown-content a:hover {
+.dropdown-content a:hover {
     background-color: #ddd;
-  }
+}
   
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
+.dropdown:hover .dropdown-content {
+   	display: block;
+}
+
+textarea {
+	resize: none;
+	height: 300px;
+	width: 350px;
+	border-radius: 5px;
+{
+
+
