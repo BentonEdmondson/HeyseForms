@@ -25,6 +25,10 @@ Settings page
 
 #### GET `/responses`
 
+Settings page (admin)
+
+#### GET `/responsesadmin`
+
 HTTP 308 Permanent Redirect to `/home`
 
 #### GET `/responses/{uniqname}`
