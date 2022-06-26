@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 ENV FLASK_APP=endpoints/main.py
 EXPOSE 5000
 COPY . .
-CMD ["flask", "run", "--host", "172.17.0.2"]
+CMD ["flask", "run"]
