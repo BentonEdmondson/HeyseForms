@@ -4,7 +4,7 @@
 
 ```
 pip install -r requirements.txt
-python src/endpoints/main.py
+python src/main.py
 ```
 
 ## Technical
