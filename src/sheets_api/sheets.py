@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import os.path
+from typing import OrderedDict
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -13,7 +14,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID of HeyseForms sample spreadsheet.
 HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
-EMAIL_COLUMN_INDEX = 1
+EMAIL_COLUMN_NAME = "Email Address"
 INTERNS_COLUMN_INDEX = 3
 
 def check_credentials(func):
@@ -41,7 +42,7 @@ def check_credentials(func):
 
 
 @check_credentials
-def get_intern_entries(intern_email: str, creds: Credentials) -> list:
+def get_all_intern_entries(creds: Credentials) -> list:
     """
     Gets all the entries of an intern.
     """
@@ -50,21 +51,33 @@ def get_intern_entries(intern_email: str, creds: Credentials) -> list:
 
         service = build('sheets', 'v4', credentials=creds)
         sheet = service.spreadsheets()
-        my_range = "Response!A2:E"
+        my_range = "Response!A1:E"
 
         data = sheet.values().get(spreadsheetId=HEYSE_FORMS_SAMPLE_SPREADSHEET_ID,
                                     range=my_range).execute()
         values = data.get('values', [])
 
-        for row in values:
-            if row[EMAIL_COLUMN_INDEX] == intern_email:
-                result.append(row)
+        result = []
 
+        if len(values) > 1:
+            for row in values[1:]:
+                entry = convert_to_dict(values[0], row)
+                result.append(entry)
+        
         return result
 
     except HttpError as err:
         print(err)
         return
+
+
+def get_intern_entries(intern_email: str) -> dict:
+    entries = get_all_intern_entries()
+    result = []
+    for entry in entries:
+        if entry[EMAIL_COLUMN_NAME] == intern_email:
+            result.append(entry)
+    return result
 
 
 @check_credentials
@@ -77,8 +90,15 @@ def get_all_supervisor_data(creds: Credentials) -> list:
         data = sheet.values().get(spreadsheetId=HEYSE_FORMS_SAMPLE_SPREADSHEET_ID,
                                     range=my_range, majorDimension="COLUMNS").execute()
         values = data.get('values', [])
+
+        result = []
+
+        if len(values) > 1:
+            for row in values[1:]:
+                entry = convert_to_dict(values[0], row)
+                result.append(entry)
         
-        return values
+        return result
 
     except HttpError as err:
         print(err)
@@ -86,23 +106,26 @@ def get_all_supervisor_data(creds: Credentials) -> list:
 
 
 def get_supervisor_interns(supervisor_email: str) -> list:
-    values = get_all_supervisor_data()
-    for row in values:
-        if row[EMAIL_COLUMN_INDEX] == supervisor_email:
-            return row[INTERNS_COLUMN_INDEX].split(", ")
+    supervisors = get_all_supervisor_data()
+    for supervisor in supervisors:
+        if supervisor["Email"] == supervisor_email:
+            return supervisor["Interns"].split(", ")
 
     return []
 
 
 def get_supervisor_notifcation(supervisor_email: str) -> bool:
-    values = get_all_supervisor_data()
-    for row in values:
-        if row[EMAIL_COLUMN_INDEX] == supervisor_email:
-            if row[2] == "1":
+    supervisors = get_all_supervisor_data()
+    for supervisor in supervisors:
+        if supervisor["Email"] == supervisor_email:
+            if supervisor["Reminders"] == "1":
                 return True
             return False
 
     return None
+
+def convert_to_dict(keys: list, values: list) -> dict:
+    return OrderedDict(zip(keys, values))
 
 
 if __name__ == '__main__':
