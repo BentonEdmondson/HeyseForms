@@ -16,52 +16,24 @@
 	<tr>
 		<td>
 			<div class="tab">
-				<button class="tablinks" onclick="openResponse('1')" id="1">Entry 1</button>
-				<button class="tablinks" onclick="openResponse('2')" id="2">Entry 2</button>
+				{% for entry in entries %}
+					<button class="tablinks" onclick="openResponse('{{ loop.index }}')" id="{{ loop.index }}">Entry {{ loop.index }}</button>
+				{% endfor %}
 			</div>
-			<div style="overflow-y:scroll;height:400px;border-radius: 0px 0px 0px 10px">
-				<div id="Entry 1" class="tabcontent">
-					<dl>
-						<div class="response">
-  						<dt>What are three things going well in your life?</dt>
-  						<dd>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</dd>
-						</div>
-						<br>
-						<div class="response">
-							<dt>Anything else?</dt>
-  						<dd>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</dd>
-						</div>
-						<br>
-						<div class="response">
-							<dt>What projects or task are you looking forward? How can we help you?</dt>
-							<dd>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</dd>
-						</div>
-					</dl>
-				</div>
-
-				<div id="Entry 2" class="tabcontent">
-					<dl>
-						<div class="response">
-							<dt>If you created your reflection in a multimedia format (i.e. photos/memes, video, etc.) upload it here.</dt>
-							<dd>https://drive.google.com/open?id=125t4pMLYT5LFiA8AweDoKTt6T2CKd3Ea</dd>
-						</div>
-						<br>
-						<div class="response">
-							<dt>How are you feeling about your workload? (3 means you have just the right amount of work)</dt>
-							<dd>3</dd>
-						</div>
-						<br>
-						<div class="response">
-							<dt>Think back about your experiences at work during the last week and choose something that happened. It could be an interaction you had with a coworker, a difficult problem you tackled, an important meeting you attended, or even a new skill you learned. Tell us about what happened, what you learned from that event, and what, if anything, you would do differently next time.</dt>
-							<dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel massa est. Integer tempus leo vel augue porttitor, et ultricies velit lacinia. Sed rutrum quis lorem nec euismod. Curabitur nec placerat tortor, nec congue urna. Duis in urna dui. Nullam risus velit, euismod at auctor eget, ultrices molestie quam. Praesent ultricies rhoncus magna quis vehicula. In hac habitasse platea dictumst. Suspendisse facilisis molestie urna sed convallis. Nunc id dolor felis.</dd>
-						</div>
-						<br>
-						<div class="response">
-							<dt>Is there anything else you'd like to share with us?</dt>
-							<dd></dd>
-						</div>
-					</dl>
-				</div>
+			<div style="overflow-y:scroll;min-width:60vw;height:400px;border-radius: 0px 0px 0px 10px">
+				{% for entry in entries %}
+					<div id="Entry {{ loop.index }}" class="tabcontent">
+						<dl>
+							{% for question, answer in entry.items() %}
+								<div class="response">
+									<dt>{{ question }}</dt>
+									<dd>{{ answer }}</dd>
+								</div>
+								<br>
+							{% endfor %}
+						</dl>
+					</div>
+				{% endfor %}
 			</div>
 		</td>
 		<td>
@@ -77,8 +49,8 @@
 </table>
 
 <script>
-	document.getElementById("Entry " + {{entry}}).style.display = "block";
-	var current = document.getElementById({{entry}});
+	document.getElementById("Entry " + {{show_entry}}).style.display = "block";
+	var current = document.getElementById({{show_entry}});
 	current.className += " active";
 
 	function openResponse(num) {

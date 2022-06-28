@@ -1,4 +1,5 @@
-from flask import Flask, Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect
+import sheets_api.sheets as gsheets
 
 home = Blueprint('home', __name__)
 
@@ -8,4 +9,5 @@ home.route('/', methods=["GET"])(
 
 @home.route('/home', methods=['GET'])
 def get_home():
-    return render_template('home.j2')
+    interns = gsheets.get_supervisor_interns(supervisor_email="jjc@umich.edu")
+    return render_template('home.j2', interns=interns)

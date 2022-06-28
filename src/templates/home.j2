@@ -13,10 +13,8 @@
 <p>Click on your interns to see their responses</p>
 
 <ul>
-  <li><a href="/responses/benton">Intern 1</a></li>
-  <li><a href="/responses/benton">Intern 2</a></li>
-  <li><a href="/responses/benton">Intern 3</a></li>
-  <li><a href="/responses/benton">Intern 4</a></li>
-  <li><a href="/responses/benton">Intern 5</a></li>
+  {% for intern in interns %}
+    <li><a href="/responses/{{intern}}">{{intern}}</a></li>
+  {% endfor %}
 </ul>
 {% endblock %}
