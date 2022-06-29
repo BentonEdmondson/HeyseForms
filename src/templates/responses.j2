@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block main %}
+<div class="row">
 <p><strong>Uniqname</strong>: {{ uniqname }}</p>
 <p><strong>Email</strong>: <a href="mailto:{{ email }}">{{ email }}</a></p>
 <table>
@@ -47,6 +48,7 @@
 		</td>
 	</tr>
 </table>
+</div>
 
 <script>
 	document.getElementById("Entry " + {{show_entry}}).style.display = "block";

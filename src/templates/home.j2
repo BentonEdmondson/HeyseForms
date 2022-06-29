@@ -8,13 +8,42 @@
 {% endblock %}
 
 {% block main %}
-<h1>Welcome!</h1>
+<style scoped>
+.home > * {
+  padding: 0;
+}
+.home {
+  text-align: center;
+  max-width: 25em;
+}
+li {
+  list-style: none;
+  margin-bottom: 0.2em;
+}
+button {
+  border: 0;
+  line-height: 2.5;
+  font-size: 1em;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+button:hover {
+  filter: brightness(95%);
+}
+</style>
+<div class="home row">
+  <h1>Welcome!</h1>
 
-<p>Click on your interns to see their responses</p>
+  <p>Click on your interns to see their responses.</p>
 
-<ul>
-  {% for intern in interns %}
-    <li><a href="/responses/{{intern}}">{{intern}}</a></li>
-  {% endfor %}
-</ul>
+  <ul>
+    {% for intern in interns %}
+      <li><button
+        onclick="location.href='/responses/{{ intern["uniqname"] }}'"
+        style="background-image: linear-gradient(90deg, #99d8a7 {{ intern["progress"]*100 }}%, #d9d9d9 0);"
+      >{{ intern["uniqname"] }}</button></li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}
