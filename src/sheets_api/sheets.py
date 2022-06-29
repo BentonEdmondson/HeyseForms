@@ -99,11 +99,15 @@ def get_all_supervisor_data(creds: Credentials) -> list:
 
 def get_supervisor_interns(supervisor_email: str) -> list:
     supervisors = get_all_supervisor_data()
+    result = []
     for supervisor in supervisors:
         if supervisor["Email"] == supervisor_email:
-            return supervisor["Interns"].split(", ")
-
-    return []
+            interns = supervisor["Interns"].split(", ")
+            for intern in interns:
+                result.append({
+                    "uniqname": intern
+                })
+    return result
 
 
 def get_supervisor_notifcation(supervisor_email: str) -> bool:
