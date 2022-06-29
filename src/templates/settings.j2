@@ -26,15 +26,15 @@
 
 <table>
   <tr>
-    <td>Intern 1 &emsp; <button type="button" onclick="alert('Removed!')">Remove</button><br></td>
-    
+    <th>Uniqname</th>
+    <th>Action</th>
   </tr>
-  <tr>
-    <td>Intern 2 &emsp; <button type="button" onclick="alert('Removed!')">Remove</button><br></td>
-  </tr>
-  <tr>
-    <td>Intern 3 &emsp; <button type="button" onclick="alert('Removed!')">Remove</button><br></td>
-  </tr>
+  {% for intern in interns %}
+    <tr>
+      <td>{{ intern["uniqname"] }}</td> 
+      <td><button type="button" onclick="alert('Removed!')">Remove</button><br></td>    
+    </tr>
+  {% endfor %}
 </table>
 
 <h2 >Email Reminder</h2>
