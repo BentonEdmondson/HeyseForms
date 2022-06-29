@@ -40,7 +40,11 @@
 
 <h2 >Email Reminder</h2>
 <label class="switch">
-  <input type="checkbox" checked>
+  {% if notif %}
+    <input type="checkbox" checked>
+  {% else %}
+    <input type="checkbox">
+  {% endif %}
   <span class="slider round"></span>
 </label>
 {% endblock %}
