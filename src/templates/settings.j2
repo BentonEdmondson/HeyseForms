@@ -9,42 +9,47 @@
 
 {% block main %}
 <div class="row">
-    <h2 >Google Spreadsheet Link</h2>
-    <form class="form-settings">
-        <input type="url" placeholder="To be replaced" style="width:80%; background : #F2EDED" readonly><br>
-    </form>
+  <h2 >Google Spreadsheet Link</h2>
+  <form class="form-settings">
+      <input type="url" placeholder="To be replaced" style="width:80%; background : #F2EDED" readonly><br>
+  </form>
 
-    <h2 >Add Interns</h2>
-    <form class="form-settings">    
-        <input type="text" placeholder="Add interns to your watchlist using their uniqnames" style="width:80%"></input>
-        <button type="button" onclick="alert('Added!')">Add</button><br>
-    </form>
+  <h2 >Add Interns</h2>
+  <form class="form-settings">    
+      <input type="text" placeholder="Add interns to your watchlist using their uniqnames" style="width:80%"></input>
+      <button type="button" onclick="alert('Added!')">Add</button><br>
+  </form>
 
-
-
-<h2 >Current Interns</h2>
-
-<table>
-  <tr>
-    <th>Uniqname</th>
-    <th>Action</th>
-  </tr>
-  {% for intern in interns %}
+  <h2 >Current Interns</h2>
+  <table>
     <tr>
-      <td>{{ intern["uniqname"] }}</td> 
-      <td><button type="button" onclick="alert('Removed!')">Remove</button><br></td>    
+      <th>Uniqname</th>
+      <th>Action</th>
     </tr>
-  {% endfor %}
-</table>
+    {% for intern in interns %}
+      <tr>
+        <td>{{ intern["uniqname"] }}</td> 
+        <td><button type="button" onclick="alert('Removed!')">Remove</button><br></td>    
+      </tr>
+    {% endfor %}
+  </table>
 
-<h2 >Email Reminder</h2>
-<label class="switch">
-  {% if notif %}
-    <input type="checkbox" checked>
-  {% else %}
-    <input type="checkbox">
-  {% endif %}
-  <span class="slider round"></span>
-</label>
+  <h2 >Email Reminder</h2>
+  <form id="notification_toogle_form" action="/settings/toggleReminder" method="post">
+    <label class="switch">
+      {% if notif %}
+        <input name="toggler" type="checkbox" checked onclick="toggleReminder()">
+      {% else %}
+        <input name="toggler" type="checkbox" onclick="toggleReminder()">
+      {% endif %}
+      <span class="slider round"></span>
+    </label>
+  </form>
 </div>
+
+<script>
+	function toggleReminder() {
+			document.getElementById("notification_toogle_form").submit();
+	}
+</script>
 {% endblock %}
