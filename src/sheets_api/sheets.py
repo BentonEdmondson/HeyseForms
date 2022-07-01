@@ -1,12 +1,10 @@
 from __future__ import print_function
+from collections import OrderedDict
 
 import os.path
-from typing import OrderedDict
 
-from google.auth.transport.requests import Request
 from google.oauth2 import service_account
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -23,7 +21,7 @@ def check_credentials(func):
         creds = None
         if os.path.exists(SERVICE_ACCOUNT_FILE):
             creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-            try: 
+            try:
                 return func(creds=creds, *args, **kwargs)
             except HttpError as err:
                 print(err)
@@ -32,6 +30,23 @@ def check_credentials(func):
         print("Could not find service account credentials.")
 
     return wrapper
+
+
+def get_spreadsheet_URL():
+    link = f"https://docs.google.com/spreadsheets/d/{HEYSE_FORMS_SAMPLE_SPREADSHEET_ID}/edit#gid=0"
+    return link
+
+
+@check_credentials
+def set_spreadsheet_URL(new_link: str, creds: Credentials):
+    try:
+        sheet_id = (new_link.split("/d/"))[1].split("/edit")[0]
+        if not sheet_id:
+            HEYSE_FORMS_SAMPLE_SPREADSHEET_ID=sheet_id
+        else:
+            raise Exception()
+    except:
+        print("ERROR: Could not find the spreadsheet ID. Please check your link.")
 
 
 @check_credentials

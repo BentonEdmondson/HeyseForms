@@ -10,40 +10,44 @@
 {% block main %}
 <div class="row">
 
-    <h2 >Google Spreadsheet Link</h2>
-    <form class="form-settings">
-        <input type="url" placeholder="Enter the URL of Google Spreadsheet here to connect" style="width:80%">
-        <button type="button" onclick="alert('Connected!')">Connect</button><br>
-    </form>
+  <h2 >Google Spreadsheet Link</h2>
+  <form class="form-settings" id="change_spreadsheeet_link" action="/settingsadmin/changeSpreadsheetURL" method="post">
+      <label>In use: <a href="{{ spreadsheet_link }}">{{ spreadsheet_link }}</a></label>
+      <input type="url" name="spreadsheetLink" placeholder="Enter the URL of Google Spreadsheet here to connect" style="width:80%">
+      <button type="button" onclick="changeGoogleSheetsURL()">Change</button><br>
+  </form>
 
-    <h2 >Add Interns</h2>
-    <form class="form-settings">    
-        <input type="text" placeholder="Add interns to your watchlist using their uniqnames" style="width:80%"></input>
-        <button type="button" onclick="alert('Added!')">Add</button><br>
-    </form>
+  <h2 >Add Interns</h2>
+  <form class="form-settings">    
+      <input type="text" placeholder="Add interns to your watchlist using their uniqnames" style="width:80%"></input>
+      <button type="button" onclick="alert('Added!')">Add</button><br>
+  </form>
 
-
-
-<h2>All Interns</h2>
-
-<table>
-  <tr>
-    <th>Uniqname</th>
-    <th>Action</th>
-  </tr>
-  {% for intern in interns %}
+  <h2>All Interns</h2>
+  <table>
     <tr>
-      <td>{{ intern["uniqname"] }}</td> 
-      <td><button type="button" onclick="alert('Removed!')">Remove</button><br></td>    
+      <th>Uniqname</th>
+      <th>Action</th>
     </tr>
-  {% endfor %}
-</table>
+    {% for intern in interns %}
+      <tr>
+        <td>{{ intern["uniqname"] }}</td> 
+        <td><button type="button" onclick="alert('Removed!')">Remove</button><br></td>    
+      </tr>
+    {% endfor %}
+  </table>
 
-<h2 >Email Reminder</h2>
-<label class="switch">
-  <input type="checkbox" checked>
-  <span class="slider round"></span>
-</label>
+  <h2 >Email Reminder</h2>
+  <label class="switch">
+    <input type="checkbox" checked>
+    <span class="slider round"></span>
+  </label>
 
 </div>
+
+<script>
+	function changeGoogleSheetsURL() {
+			document.getElementById("change_spreadsheeet_link").submit();
+	}
+</script>
 {% endblock %}
