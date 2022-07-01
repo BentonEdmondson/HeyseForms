@@ -116,14 +116,19 @@ dt {
 	background-color: #f1f1f1; 
 }
 
+button.dropbtn {
+    width: 100%;
+}
+
 .dropdown {
     float: right;
-    width: 10%;
+    /* width: 10%; */
+    line-height: normal;
  }
   
 .dropdown .dropbtn {
-    font-size: 16px;  
-    border: none;
+    font-size: 1em;  
+    border: 0;
     outline: none;
     color: white;
     background-color: inherit;
