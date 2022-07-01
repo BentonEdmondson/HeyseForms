@@ -19,6 +19,10 @@ HTTP 308 Permanent Redirect to `/home`
 
 Landing page
 
+#### GET `/homeadmin`
+
+Landing page (Admin)
+
 #### GET `/settings`
 
 Settings page
