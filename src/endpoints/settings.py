@@ -9,10 +9,12 @@ settings = Blueprint('settings', __name__)
 def get_settings():
     interns = gsheets.get_supervisor_interns(supervisor_email="jjc@umich.edu")
     notif = gsheets.get_supervisor_notifcation(supervisor_email="jjc@umich.edu")
+    link = gsheets.get_spreadsheet_URL()
     return render_template(
         'settings.j2',
         notif=notif,
-        interns=interns
+        interns=interns,
+        link = link
     )
 
 

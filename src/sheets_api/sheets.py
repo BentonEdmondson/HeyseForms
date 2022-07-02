@@ -1,5 +1,6 @@
 from __future__ import print_function
 from collections import OrderedDict
+from datetime import date
 
 import os.path
 
@@ -36,6 +37,14 @@ def get_spreadsheet_URL():
     link = f"https://docs.google.com/spreadsheets/d/{HEYSE_FORMS_SAMPLE_SPREADSHEET_ID}/edit#gid=0"
     return link
 
+def get_total_submission_count():    
+    #provide the 1st date of internship
+    date1 = date(2022,5,2)
+    #Today's date
+    date2 = date.today()
+    days = abs(date1-date2).days
+    sub_count = (days//7)+1
+    return sub_count
 
 @check_credentials
 def set_spreadsheet_URL(new_link: str, creds: Credentials):

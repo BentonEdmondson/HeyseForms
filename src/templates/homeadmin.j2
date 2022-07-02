@@ -16,9 +16,17 @@
   text-align: center;
   max-width: 25em;
 }
-li {
+li.uniq{
   list-style: none;
   margin-bottom: 0.2em;
+  width:80%;
+  float:left;
+}
+li.count{
+  list-style: none;
+  margin-bottom: 0.2em;
+  width:20%;
+  float:right;
 }
 button.response {
   border: 0;
@@ -39,10 +47,13 @@ button.response:hover {
 
   <ul>
     {% for intern in interns %}
-      <li><button class = "response"
+      <li class = "uniq"><button class = "response"
         onclick="location.href='/responses/{{ intern["uniqname"] }}'"
         style="background-image: linear-gradient(90deg, #99d8a7 {{ intern["progress"]*100 }}%, #d9d9d9 0);"
-      >{{ intern["uniqname"] }}</button></li>
+      >{{ intern["uniqname"] }}</button></li> 
+      <li class = "count"><button class = "response" 
+        onclick="location.href='/responses/{{ intern["uniqname"] }}'" 
+        style="background-color: transparent;">{{ intern["submission"] }}/{{ sub_count }}</button></li>
     {% endfor %}
   </ul>
 </div>

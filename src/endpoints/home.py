@@ -11,20 +11,9 @@ home.route('/', methods=["GET"])(
 @home.route('/home', methods=['GET'])
 def get_home():
     interns = gsheets.get_supervisor_interns(supervisor_email="jjc@umich.edu")
+    sub_count = gsheets.get_total_submission_count()
     for intern in interns:
-        intern["progress"] = random.random()
-    # interns = [
-    #     {
-    #         "uniqname": "benton",
-    #         "progress": 0.43
-    #     },
-    #     {
-    #         "uniqname": "amadeus",
-    #         "progress": 0.12
-    #     },
-    #     {
-    #         "uniqname": "lordvader",
-    #         "progress": 1
-    #     }
-    # ]
-    return render_template('home.j2', interns=interns)
+        entries = gsheets.get_intern_entries(intern_email=intern["uniqname"]+"@umich.edu")
+        intern["progress"] = len(entries)/sub_count
+        intern["submission"] = len(entries)
+    return render_template('home.j2', interns=interns, sub_count=sub_count)
