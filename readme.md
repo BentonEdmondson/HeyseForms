@@ -4,7 +4,8 @@
 
 ```
 pip install -r requirements.txt
-python src/main.py
+cd src
+python3 main.py
 ```
 
 ## Technical
