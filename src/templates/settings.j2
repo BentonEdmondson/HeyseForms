@@ -15,9 +15,9 @@
   </form>
 
   <h2 >Add Interns</h2>
-  <form class="form-settings">    
-      <input type="text" placeholder="Add interns to your watchlist using their uniqnames" style="width:80%"></input>
-      <button type="button" onclick="alert('Added!')">Add</button><br>
+  <form class="form-settings" id="add_intern_form" action="/settings/addIntern" method="post">    
+      <input type="text" name="intern_uniqname" placeholder="Add interns to your watchlist using their uniqnames" style="width:80%"></input>
+      <input type="button" onclick="addIntern()" value="Add"></input>
   </form>
 
   <h2 >Current Interns</h2>
@@ -52,12 +52,16 @@
 </div>
 
 <script>
-	function toggleReminder() {
-		document.getElementById("notification_toogle_form").submit();
-	}
+  function addIntern(form_index, intern_uniqname) {
+    document.getElementById("add_intern_form").submit();
+  }
 
   function removeIntern(form_index, intern_uniqname) {
     document.getElementById("remove_intern_form_"+form_index.toString()).submit();
   }
+  
+	function toggleReminder() {
+		document.getElementById("notification_toogle_form").submit();
+	}
 </script>
 {% endblock %}
