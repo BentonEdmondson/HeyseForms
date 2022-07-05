@@ -18,15 +18,14 @@ def get_settings():
     )
 
 
-@settings.route('/settings/toggleReminder', methods=['POST'])
-def toggle_reminder():
+@settings.route('/settings/addIntern', methods=['POST'])
+def add_intern():
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
         if supervisor["Email"] == "jjc@umich.edu":
-            if request.form.get("toggler") == "on":
-                supervisor["Reminders"] = "1"
-            else:
-                supervisor["Reminders"] = "0"
+            interns = supervisor["Interns"].split(", ")
+            interns.append(request.form.get("intern_uniqname"))
+            supervisor["Interns"] = ", ".join(interns)
             range = f"Record!{chr(65+idx+1)}1:{chr(65+idx+1)}4"
             gsheets.update_supervisor(supervisor_data=supervisor, my_range=range)
     return redirect("/settings")
@@ -40,6 +39,20 @@ def remove_intern():
             interns = supervisor["Interns"].split(", ")
             interns.remove(request.form.get("intern_uniqname"))
             supervisor["Interns"] = ", ".join(interns)
+            range = f"Record!{chr(65+idx+1)}1:{chr(65+idx+1)}4"
+            gsheets.update_supervisor(supervisor_data=supervisor, my_range=range)
+    return redirect("/settings")
+
+
+@settings.route('/settings/toggleReminder', methods=['POST'])
+def toggle_reminder():
+    all_supervisor_data = gsheets.get_all_supervisor_data()
+    for idx, supervisor in enumerate(all_supervisor_data):
+        if supervisor["Email"] == "jjc@umich.edu":
+            if request.form.get("toggler") == "on":
+                supervisor["Reminders"] = "1"
+            else:
+                supervisor["Reminders"] = "0"
             range = f"Record!{chr(65+idx+1)}1:{chr(65+idx+1)}4"
             gsheets.update_supervisor(supervisor_data=supervisor, my_range=range)
     return redirect("/settings")
