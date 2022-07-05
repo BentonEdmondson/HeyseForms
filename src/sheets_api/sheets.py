@@ -160,7 +160,7 @@ def update_supervisor(supervisor_data: OrderedDict, my_range: str, creds: Creden
             spreadsheetId=HEYSE_FORMS_SAMPLE_SPREADSHEET_ID, range=my_range,
             valueInputOption="USER_ENTERED", body=body).execute()
 
-    print(response)
+    return response
 
 
 def convert_to_dict(keys: list, values: list) -> dict:

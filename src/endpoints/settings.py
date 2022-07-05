@@ -30,3 +30,16 @@ def toggle_reminder():
             range = f"Record!{chr(65+idx+1)}1:{chr(65+idx+1)}4"
             gsheets.update_supervisor(supervisor_data=supervisor, my_range=range)
     return redirect("/settings")
+
+
+@settings.route('/settings/removeIntern', methods=['POST'])
+def remove_intern():
+    all_supervisor_data = gsheets.get_all_supervisor_data()
+    for idx, supervisor in enumerate(all_supervisor_data):
+        if supervisor["Email"] == "jjc@umich.edu":
+            interns = supervisor["Interns"].split(", ")
+            interns.remove(request.form.get("intern_uniqname"))
+            supervisor["Interns"] = ", ".join(interns)
+            range = f"Record!{chr(65+idx+1)}1:{chr(65+idx+1)}4"
+            gsheets.update_supervisor(supervisor_data=supervisor, my_range=range)
+    return redirect("/settings")
