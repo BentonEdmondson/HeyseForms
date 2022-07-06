@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, redirect
 import sheets_api.sheets as gsheets
-import random
 
 home = Blueprint('home', __name__)
 

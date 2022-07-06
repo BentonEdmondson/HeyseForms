@@ -11,7 +11,7 @@ from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-SERVICE_ACCOUNT_FILE = 'service.json'
+SERVICE_ACCOUNT_FILE = 'src/service.json'
 
 # The ID of HeyseForms sample spreadsheet.
 HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
@@ -37,6 +37,7 @@ def get_spreadsheet_URL():
     link = f"https://docs.google.com/spreadsheets/d/{HEYSE_FORMS_SAMPLE_SPREADSHEET_ID}/edit#gid=0"
     return link
 
+
 def get_total_submission_count():    
     #provide the 1st date of internship
     date1 = date(2022,5,2)
@@ -45,6 +46,7 @@ def get_total_submission_count():
     days = abs(date1-date2).days
     sub_count = (days//7)+1
     return sub_count
+
 
 @check_credentials
 def set_spreadsheet_URL(new_link: str, creds: Credentials):
@@ -124,6 +126,7 @@ def get_supervisor_interns(supervisor_email: str) -> list:
                 })
     return result
 
+
 def get_all_interns() -> list:
     supervisors = get_all_supervisor_data()
     result = []
@@ -134,6 +137,7 @@ def get_all_interns() -> list:
                 "uniqname": intern
             })
     return result
+
 
 def get_supervisor_notifcation(supervisor_email: str) -> bool:
     supervisors = get_all_supervisor_data()

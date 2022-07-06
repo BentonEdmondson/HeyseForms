@@ -7,8 +7,7 @@ settingsadmin = Blueprint('settingsadmin', __name__)
 
 @settingsadmin.route('/settingsadmin', methods=['GET'])
 def get_settingsadmin():
-    # interns = gsheets.get_all_interns()
-    interns=[]
+    interns = gsheets.get_all_interns()
     notif = gsheets.get_supervisor_notifcation(supervisor_email="jjc@umich.edu")
     spreadsheet_link = gsheets.get_spreadsheet_URL()
     return render_template(
