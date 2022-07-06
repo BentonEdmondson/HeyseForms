@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, request
+import re
 import sheets_api.sheets as gsheets
 
 
@@ -24,6 +25,10 @@ def add_intern():
     for idx, supervisor in enumerate(all_supervisor_data):
         if supervisor["Email"] == "jjc@umich.edu":
             interns = supervisor["Interns"].split(", ")
+            uniqname_pattern =  re.compile("^(?=.{2,255}$)[a-z]+$")
+            if not uniqname_pattern.match(request.form.get("intern_uniqname")):
+                print("Invalid Uniqname!")
+                return redirect("/settings")
             interns.append(request.form.get("intern_uniqname"))
             supervisor["Interns"] = ", ".join(interns)
             range = f"Record!{chr(65+idx+1)}1:{chr(65+idx+1)}4"
