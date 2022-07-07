@@ -15,8 +15,8 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SERVICE_ACCOUNT_FILE = 'service.json'
 
 # The ID of HeyseForms sample spreadsheet.
-HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = config('spreadsheet_link')
-# '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
+HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
+print(config('spreadsheet_link'))
 EMAIL_COLUMN_NAME = "Email Address"
 
 def check_credentials(func):
