@@ -10,9 +10,11 @@ home.route('/', methods=["GET"])(
 @home.route('/home', methods=['GET'])
 def get_home():
     interns = gsheets.get_supervisor_interns(supervisor_email="jjc@umich.edu")
+    entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
     sub_count = gsheets.get_total_submission_count()
-    for intern in interns:
-        entries = gsheets.get_intern_entries(intern_email=intern["uniqname"]+"@umich.edu")
-        intern["progress"] = len(entries)/sub_count
-        intern["submission"] = len(entries)
+    for entry in entries:
+        if "submission" in interns[entry[gsheets.EMAIL_COLUMN_NAME]].keys():
+            interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] += 1
+        else:
+            interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] = 1
     return render_template('home.j2', interns=interns, sub_count=sub_count)
