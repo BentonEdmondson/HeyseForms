@@ -12,7 +12,7 @@ from decouple import config
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-SERVICE_ACCOUNT_FILE = 'src/service.json'
+SERVICE_ACCOUNT_FILE = 'service.json'
 
 # The ID of HeyseForms sample spreadsheet.
 HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = config('spreadsheet_link')
