@@ -8,13 +8,15 @@ from google.oauth2 import service_account
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from decouple import config
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SERVICE_ACCOUNT_FILE = 'src/service.json'
 
 # The ID of HeyseForms sample spreadsheet.
-HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
+HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = config('spreadsheet_link')
+# '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
 EMAIL_COLUMN_NAME = "Email Address"
 
 def check_credentials(func):
