@@ -11,11 +11,13 @@ from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-SERVICE_ACCOUNT_FILE = 'service.json'
+SERVICE_ACCOUNT_FILE = 'src/service.json'
 
 # The ID of HeyseForms sample spreadsheet.
 HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
 EMAIL_COLUMN_NAME = "Email Address"
+
+INTERNSHIP_START_DATE = date(2022,5,2)
 
 def check_credentials(func):
     def wrapper(*args, **kwargs):
@@ -37,14 +39,11 @@ def get_spreadsheet_URL():
     link = f"https://docs.google.com/spreadsheets/d/{HEYSE_FORMS_SAMPLE_SPREADSHEET_ID}/edit#gid=0"
     return link
 
-def get_total_submission_count():    
-    #provide the 1st date of internship
-    date1 = date(2022,5,2)
-    #Today's date
-    date2 = date.today()
-    days = abs(date1-date2).days
-    sub_count = (days//7)+1
-    return sub_count
+
+def get_total_submission_count():
+    days = abs(INTERNSHIP_START_DATE-date.today()).days
+    return (days//7)+1
+
 
 @check_credentials
 def set_spreadsheet_URL(new_link: str, creds: Credentials):
@@ -83,11 +82,11 @@ def get_all_intern_entries(creds: Credentials) -> list:
     return result
 
 
-def get_intern_entries(intern_email: str) -> dict:
+def get_intern_entries(intern_email: str= "", intern_emails: list = []) -> dict:
     entries = get_all_intern_entries()
     result = []
     for entry in entries:
-        if entry[EMAIL_COLUMN_NAME] == intern_email:
+        if (entry[EMAIL_COLUMN_NAME] == intern_email) or (entry[EMAIL_COLUMN_NAME] in intern_emails):
             result.append(entry)
     return result
 
@@ -112,17 +111,18 @@ def get_all_supervisor_data(creds: Credentials) -> list:
     return result
 
 
-def get_supervisor_interns(supervisor_email: str) -> list:
+def get_supervisor_interns(supervisor_email: str) -> dict:
     supervisors = get_all_supervisor_data()
-    result = []
+    result = {}
     for supervisor in supervisors:
         if supervisor["Email"] == supervisor_email:
             interns = supervisor["Interns"].split(", ")
             for intern in interns:
-                result.append({
-                    "uniqname": intern
-                })
+                result[intern + "@umich.edu"] = {
+                    "uniqname": intern,
+                }
     return result
+
 
 def get_all_interns() -> list:
     supervisors = get_all_supervisor_data()
@@ -134,6 +134,7 @@ def get_all_interns() -> list:
                 "uniqname": intern
             })
     return result
+
 
 def get_supervisor_notifcation(supervisor_email: str) -> bool:
     supervisors = get_all_supervisor_data()

@@ -48,12 +48,12 @@ button.response:hover {
   <ul>
     {% for intern in interns %}
       <li class = "uniq"><button class = "response"
-        onclick="location.href='/responses/{{ intern["uniqname"] }}'"
-        style="background-image: linear-gradient(90deg, #99d8a7 {{ intern["progress"]*100 }}%, #d9d9d9 0);"
-      >{{ intern["uniqname"] }}</button></li> 
+        onclick="location.href='/responses/{{ interns[intern]["uniqname"] }}'"
+        style="background-image: linear-gradient(90deg, #99d8a7 {{ interns[intern]["submission"]/sub_count*100 }}%, #d9d9d9 0);"
+      >{{ interns[intern]["uniqname"] }}</button></li> 
       <li class = "count"><button class = "response" 
-        onclick="location.href='/responses/{{ intern["uniqname"] }}'" 
-        style="background-color: transparent;">{{ intern["submission"] }}/{{ sub_count }}</button></li>
+        onclick="location.href='/responses/{{ interns[intern]["uniqname"] }}'" 
+        style="background-color: transparent;">{{ interns[intern]["submission"] }}/{{ sub_count }}</button></li>
     {% endfor %}
   </ul>
 </div>
