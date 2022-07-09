@@ -1,0 +1,4 @@
+import os
+
+OIDC_CLIENT_ID = os.getenv('OIDC_CLIENT_ID')
+OIDC_CLIENT_SECRET = os.getenv('OIDC_CLIENT_SECRET')

@@ -8,7 +8,7 @@ import re
 app = Flask(__name__, template_folder="./templates")
 
 app.secret_key = '!secret'
-# app.config.from_object('config')
+app.config.from_object('config')
 
 CONF_URL = 'https://shib-idp-dev.dsc.umich.edu/.well-known/openid-configuration'
 oauth = OAuth(app)
@@ -16,8 +16,6 @@ oauth.register(
     name='HeyesForms',
     server_metadata_url=CONF_URL,
     client_kwargs={
-        "client_id": config('OIDC_CLIENT_ID'),
-        "client_secret": config('OIDC_CLIENT_SECRET'),
         "scope": "openid profile email offline_access eduperson_affiliation eduperson_scoped_affiliation",
         "redirect_uris": [
             "https://heyseforms.webplatformsnonprod.umich.edu/auth"
