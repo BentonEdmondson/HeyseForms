@@ -21,7 +21,7 @@
   </form>
 
   <h2 >Current Interns</h2>
-  {% for intern in interns %}
+  {% for intern in internss %}
     <form id="remove_intern_form_{{loop.index}}" action="/settings/removeIntern" method="post"></form>
   {% endfor %}
   <table>
@@ -31,9 +31,9 @@
     </tr>
     {% for intern in interns %}
       <tr>
-        <td>{{ intern["uniqname"] }}</td>
-        <input type="hidden" name="intern_uniqname" value="{{ intern["uniqname"] }}" form="remove_intern_form_{{loop.index}}"/>
-        <td><input type="button" onclick="removeIntern({{loop.index}}, '{{ raw }}{{ intern["uniqname"] }}{{ endraw }}')" value="Remove" form="remove_intern_form_{{loop.index}}"></input></td>
+        <td>{{ interns[intern]["uniqname"] }}</td>
+        <input type="hidden" name="intern_uniqname" value="{{ interns[intern]["uniqname"] }}" form="remove_intern_form_{{loop.index}}"/>
+        <td><input type="button" onclick="removeIntern({{loop.index}}, '{{ raw }}{{ interns[intern]["uniqname"] }}{{ endraw }}')" value="Remove" form="remove_intern_form_{{loop.index}}"></input></td>
       </tr>
     {% endfor %}
   </table>
