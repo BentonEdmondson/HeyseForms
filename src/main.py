@@ -1,6 +1,7 @@
 from http.client import responses
 from flask import Flask, Blueprint, render_template, redirect, request, url_for, session
 from authlib.integrations.flask_client import OAuth
+from authlib.client import OAuth2Session
 from decouple import config
 import sheets_api.sheets as gsheets
 import re
@@ -8,7 +9,7 @@ import re
 app = Flask(__name__, template_folder="./templates")
 
 app.secret_key = '!secret'
-app.config.from_object('config')
+# app.config.from_object('config')
 
 CONF_URL = 'https://shib-idp-dev.dsc.umich.edu/.well-known/openid-configuration'
 HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
@@ -16,26 +17,11 @@ HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/aut
 oauth = OAuth(app)
 oauth.register(
     name='HeyesForms',
+    client_id = config('OIDC_CLIENT_ID')
+    client_secret = config('OIDC_CLIENT_SECRET')
     server_metadata_url=CONF_URL,
     client_kwargs={
-        "scope": "openid profile email offline_access eduperson_affiliation eduperson_scoped_affiliation",
-        "redirect_uris": [
-            "https://heyseforms.webplatformsnonprod.umich.edu/auth"
-        ],
-        "token_endpoint_auth_method": "client_secret_basic",
-        "grant_types": [
-          "authorization_code",
-          "implicit",
-          "refresh_token"
-        ],
-        "response_types": [
-          "code",
-          "id_token",
-          "id_token token",
-          "code id_token",
-          "code token",
-          "code id_token token"
-        ]
+        "scope": "openid profile email offline_access eduperson_affiliation eduperson_scoped_affiliation"
     }
 )
 
