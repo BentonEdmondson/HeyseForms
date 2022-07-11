@@ -24,7 +24,7 @@ oauth.register(
 
 )
 
-global uniqname
+global user_uniqname
 
 @app.route('/login')
 def login():
@@ -50,8 +50,8 @@ def logout():
 @app.route('/home', methods=['GET'])
 def get_home():
     user = session.get('user') 
-    uniqname = user['sub']
-    interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname}@umich.edu")
+    user_uniqname = user['sub']
+    interns = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
     sub_count = gsheets.get_total_submission_count()
     for entry in entries:
@@ -59,7 +59,7 @@ def get_home():
             interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] += 1
         else:
             interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] = 1
-    return render_template('home.j2', interns=interns, sub_count=sub_count, uniqname=uniqname)
+    return render_template('home.j2', interns=interns, sub_count=sub_count, uniqname=user_uniqname)
 
 
 @app.route('/homeadmin', methods=['GET'])
@@ -98,9 +98,9 @@ def get_gsheet():
 
 @app.route('/settings', methods=['GET'])
 def get_settings():
-    interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname}@umich.edu")
-    internss = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname}@umich.edu")
-    notif = gsheets.get_supervisor_notifcation(supervisor_email=f"{uniqname}@umich.edu")
+    interns = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
+    internss = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
+    notif = gsheets.get_supervisor_notifcation(supervisor_email=f"{user_uniqname}@umich.edu")
     link = gsheets.get_spreadsheet_URL()
     return render_template(
         'settings.j2',
@@ -115,7 +115,7 @@ def get_settings():
 def add_intern():
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
-        if supervisor["Email"] == f"{uniqname}@umich.edu":
+        if supervisor["Email"] == f"{user_uniqname}@umich.edu":
             interns = supervisor["Interns"].split(", ")
             uniqname_pattern =  re.compile("^(?=.{2,255}$)[a-z]+$")
             if not uniqname_pattern.match(request.form.get("intern_uniqname")):
@@ -132,7 +132,7 @@ def add_intern():
 def remove_intern():
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
-        if supervisor["Email"] == f"{uniqname}@umich.edu":
+        if supervisor["Email"] == f"{user_uniqname}@umich.edu":
             interns = supervisor["Interns"].split(", ")
             interns.remove(request.form.get("intern_uniqname"))
             supervisor["Interns"] = ", ".join(interns)
@@ -145,7 +145,7 @@ def remove_intern():
 def toggle_reminder():
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
-        if supervisor["Email"] == f"{uniqname}@umich.edu":
+        if supervisor["Email"] == f"{user_uniqname}@umich.edu":
             if request.form.get("toggler") == "on":
                 supervisor["Reminders"] = "1"
             else:
@@ -158,7 +158,7 @@ def toggle_reminder():
 @app.route('/settingsadmin', methods=['GET'])
 def get_settingsadmin():
     interns = gsheets.get_all_interns()
-    notif = gsheets.get_supervisor_notifcation(supervisor_email=f"{uniqname}@umich.edu")
+    notif = gsheets.get_supervisor_notifcation(supervisor_email=f"{user_uniqname}@umich.edu")
     spreadsheet_link = gsheets.get_spreadsheet_URL()
     return render_template(
         'settingsadmin.j2',
