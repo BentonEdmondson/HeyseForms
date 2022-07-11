@@ -10,9 +10,12 @@
 {% endblock %}
 
 {% block main %}
+
+
 <div class="row">
 <p><strong>Uniqname</strong>: {{ uniqname }}</p>
 <p><strong>Email</strong>: <a href="mailto:{{ email }}">{{ email }}</a></p>
+
 <table>
 	<tr>
 		<td>
@@ -21,7 +24,7 @@
 					<button class="tablinks" onclick="openResponse('{{ loop.index }}')" id="{{ loop.index }}">Entry {{ loop.index }}</button>
 				{% endfor %}
 			</div>
-			<div style="overflow-y:scroll;min-width:60vw;height:400px;border-radius: 0px 0px 0px 10px">
+			<div style="overflow-y:scroll;min-width:50vw;height:400px;border-radius: 0px 0px 0px 10px">
 				{% for entry in entries %}
 					<div id="Entry {{ loop.index }}" class="tabcontent">
 						<dl>
@@ -48,6 +51,7 @@
 		</td>
 	</tr>
 </table>
+
 </div>
 
 <script>

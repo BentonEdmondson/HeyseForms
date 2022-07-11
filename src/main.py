@@ -1,7 +1,6 @@
 from http.client import responses
 from flask import Flask, Blueprint, render_template, redirect, request, url_for, session
 from authlib.integrations.flask_client import OAuth
-# from authlib.client import OAuth2Session
 from decouple import config
 import sheets_api.sheets as gsheets
 import re
@@ -31,6 +30,7 @@ def login():
     redirect_uri = HEYESFORMS_AUTHORIZE_URL
     return oauth.HeyesForms.authorize_redirect(redirect_uri)
 
+
 @app.route('/auth')
 def auth():
     token = oauth.HeyesForms.authorize_access_token()
@@ -49,13 +49,16 @@ def logout():
 @app.route('/home', methods=['GET'])
 def get_home():
     user = session.get('user')
-    uniqname = user['sub']
+    global uniqname 
+    uniqname= user['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname}@umich.edu")
+    entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
     sub_count = gsheets.get_total_submission_count()
-    for intern in interns:
-        entries = gsheets.get_intern_entries(intern_email=intern["uniqname"]+"@umich.edu")
-        intern["progress"] = len(entries)/sub_count
-        intern["submission"] = len(entries)
+    for entry in entries:
+        if "submission" in interns[entry[gsheets.EMAIL_COLUMN_NAME]].keys():
+            interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] += 1
+        else:
+            interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] = 1
     return render_template('home.j2', interns=interns, sub_count=sub_count, uniqname=uniqname)
 
 
@@ -95,13 +98,15 @@ def get_gsheet():
 
 @app.route('/settings', methods=['GET'])
 def get_settings():
-    interns = gsheets.get_supervisor_interns(supervisor_email="jjc@umich.edu")
-    notif = gsheets.get_supervisor_notifcation(supervisor_email="jjc@umich.edu")
+    interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname}@umich.edu")
+    internss = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname}@umich.edu")
+    notif = gsheets.get_supervisor_notifcation(supervisor_email=f"{uniqname}@umich.edu")
     link = gsheets.get_spreadsheet_URL()
     return render_template(
         'settings.j2',
         notif=notif,
         interns=interns,
+        internss=internss,
         link = link
     )
 
@@ -110,7 +115,7 @@ def get_settings():
 def add_intern():
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
-        if supervisor["Email"] == "jjc@umich.edu":
+        if supervisor["Email"] == f"{uniqname}@umich.edu":
             interns = supervisor["Interns"].split(", ")
             uniqname_pattern =  re.compile("^(?=.{2,255}$)[a-z]+$")
             if not uniqname_pattern.match(request.form.get("intern_uniqname")):
@@ -127,7 +132,7 @@ def add_intern():
 def remove_intern():
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
-        if supervisor["Email"] == "jjc@umich.edu":
+        if supervisor["Email"] == f"{uniqname}@umich.edu":
             interns = supervisor["Interns"].split(", ")
             interns.remove(request.form.get("intern_uniqname"))
             supervisor["Interns"] = ", ".join(interns)
@@ -140,7 +145,7 @@ def remove_intern():
 def toggle_reminder():
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
-        if supervisor["Email"] == "jjc@umich.edu":
+        if supervisor["Email"] == f"{uniqname}@umich.edu":
             if request.form.get("toggler") == "on":
                 supervisor["Reminders"] = "1"
             else:
@@ -153,7 +158,7 @@ def toggle_reminder():
 @app.route('/settingsadmin', methods=['GET'])
 def get_settingsadmin():
     interns = gsheets.get_all_interns()
-    notif = gsheets.get_supervisor_notifcation(supervisor_email="jjc@umich.edu")
+    notif = gsheets.get_supervisor_notifcation(supervisor_email=f"{uniqname}@umich.edu")
     spreadsheet_link = gsheets.get_spreadsheet_URL()
     return render_template(
         'settingsadmin.j2',
@@ -168,6 +173,10 @@ def update_spreadsheet_link():
     gsheets.set_spreadsheet_URL(request.form.get("spreadsheetLink"))
     return redirect("/settingsadmin")
 
+
+@app.errorhandler(404) 
+def invalid_route(e): 
+    return render_template('404.j2')
 
 if __name__ == "__main__":
     app.run()
