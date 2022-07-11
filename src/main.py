@@ -29,8 +29,7 @@ oauth.register(
 
 @app.route('/login')
 def login():
-    redirect_uri = url_for('auth', _external=True)
-    print(redirect_uri)
+    redirect_uri = HEYESFORMS_AUTHORIZE_URL
     return oauth.HeyesForms.authorize_redirect(redirect_uri)
 
 @app.route('/auth')
