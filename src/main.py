@@ -21,9 +21,10 @@ oauth.register(
     client_kwargs={
         "scope": "openid profile email offline_access eduperson_affiliation eduperson_scoped_affiliation"
     }
+
 )
 
-
+global uniqname
 
 @app.route('/login')
 def login():
@@ -48,9 +49,8 @@ def logout():
 
 @app.route('/home', methods=['GET'])
 def get_home():
-    user = session.get('user')
-    global uniqname 
-    uniqname= user['sub']
+    user = session.get('user') 
+    uniqname = user['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
     sub_count = gsheets.get_total_submission_count()
