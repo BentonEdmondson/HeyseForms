@@ -17,8 +17,8 @@ HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/aut
 oauth = OAuth(app)
 oauth.register(
     name='HeyesForms',
-    client_id = config('OIDC_CLIENT_ID')
-    client_secret = config('OIDC_CLIENT_SECRET')
+    client_id = config('OIDC_CLIENT_ID'),
+    client_secret = config('OIDC_CLIENT_SECRET'),
     server_metadata_url=CONF_URL,
     client_kwargs={
         "scope": "openid profile email offline_access eduperson_affiliation eduperson_scoped_affiliation"
