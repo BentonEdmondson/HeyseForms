@@ -11,6 +11,8 @@ app.secret_key = '!secret'
 app.config.from_object('config')
 
 CONF_URL = 'https://shib-idp-dev.dsc.umich.edu/.well-known/openid-configuration'
+HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
+
 oauth = OAuth(app)
 oauth.register(
     name='HeyesForms',
@@ -41,8 +43,7 @@ oauth.register(
 
 @app.route('/login')
 def login():
-    # redirect_uri = url_for('auth', _external=True)
-    redirect_uri = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
+    redirect_uri = url_for('auth', _external=True)
     print(redirect_uri)
     return oauth.HeyesForms.authorize_redirect(redirect_uri)
 
