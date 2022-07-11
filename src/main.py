@@ -9,7 +9,6 @@ import re
 app = Flask(__name__, template_folder="./templates")
 
 app.secret_key = '!secret'
-# app.config.from_object('config')
 
 CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
 HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
@@ -38,7 +37,7 @@ def auth():
     user = token.get('userinfo')
     if user:
         session['user'] = user
-    return redirect('/')
+    return redirect('/home')
 
 
 @app.route('/logout')
@@ -49,7 +48,8 @@ def logout():
 
 @app.route('/home', methods=['GET'])
 def get_home():
-    print(session.get('user'))
+    user = session.get('user')
+    print(user['sub'])
     interns = gsheets.get_supervisor_interns(supervisor_email="jjc@umich.edu")
     sub_count = gsheets.get_total_submission_count()
     for intern in interns:
