@@ -49,14 +49,14 @@ def logout():
 @app.route('/home', methods=['GET'])
 def get_home():
     user = session.get('user')
-    print(user)
-    interns = gsheets.get_supervisor_interns(supervisor_email=f"{user['sub']}@umich.edu")
+    uniqname = user['sub']
+    interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname}@umich.edu")
     sub_count = gsheets.get_total_submission_count()
     for intern in interns:
         entries = gsheets.get_intern_entries(intern_email=intern["uniqname"]+"@umich.edu")
         intern["progress"] = len(entries)/sub_count
         intern["submission"] = len(entries)
-    return render_template('home.j2', interns=interns, sub_count=sub_count)
+    return render_template('home.j2', interns=interns, sub_count=sub_count, uniqname=uniqname)
 
 
 @app.route('/homeadmin', methods=['GET'])
