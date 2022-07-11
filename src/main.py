@@ -11,7 +11,7 @@ app = Flask(__name__, template_folder="./templates")
 app.secret_key = '!secret'
 # app.config.from_object('config')
 
-CONF_URL = 'https://shib-idp-dev.dsc.umich.edu/.well-known/openid-configuration'
+CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
 HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
 
 oauth = OAuth(app)
