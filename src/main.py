@@ -41,7 +41,8 @@ oauth.register(
 
 @app.route('/login')
 def login():
-    redirect_uri = url_for('auth', _external=True)
+    # redirect_uri = url_for('auth', _external=True)
+    redirect_uri = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
     print(redirect_uri)
     return oauth.HeyesForms.authorize_redirect(redirect_uri)
 
