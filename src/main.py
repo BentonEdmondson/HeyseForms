@@ -34,6 +34,7 @@ def login():
 def auth():
     token = oauth.HeyesForms.authorize_access_token()
     user = token.get('userinfo')
+    print(token)
     if user:
         session['user'] = user
     return redirect('/home')
