@@ -43,7 +43,7 @@ def auth():
 @app.route('/logout')
 def logout():
     session.pop('user', None)
-    return redirect('/')
+    return redirect('/login')
 
 
 @app.route('/home', methods=['GET'])
@@ -99,6 +99,7 @@ def get_gsheet():
 
 @app.route('/settings', methods=['GET'])
 def get_settings():
+    user_uniqname = session['user']['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
     internss = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
     notif = gsheets.get_supervisor_notifcation(supervisor_email=f"{user_uniqname}@umich.edu")
@@ -114,6 +115,7 @@ def get_settings():
 
 @app.route('/settings/addIntern', methods=['POST'])
 def add_intern():
+    user_uniqname = session['user']['sub']
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
         if supervisor["Email"] == f"{user_uniqname}@umich.edu":
@@ -131,6 +133,7 @@ def add_intern():
 
 @app.route('/settings/removeIntern', methods=['POST'])
 def remove_intern():
+    user_uniqname = session['user']['sub']
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
         if supervisor["Email"] == f"{user_uniqname}@umich.edu":
@@ -144,6 +147,7 @@ def remove_intern():
 
 @app.route('/settings/toggleReminder', methods=['POST'])
 def toggle_reminder():
+    user_uniqname = session['user']['sub']
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
         if supervisor["Email"] == f"{user_uniqname}@umich.edu":
@@ -158,6 +162,7 @@ def toggle_reminder():
 
 @app.route('/settingsadmin', methods=['GET'])
 def get_settingsadmin():
+    user_uniqname = session['user']['sub']
     interns = gsheets.get_all_interns()
     notif = gsheets.get_supervisor_notifcation(supervisor_email=f"{user_uniqname}@umich.edu")
     spreadsheet_link = gsheets.get_spreadsheet_URL()
