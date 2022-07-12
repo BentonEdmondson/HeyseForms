@@ -48,7 +48,7 @@ def logout():
 
 @app.route('/home', methods=['GET'])
 def get_home():
-    if user not in session:
+    if session['user'] is None:
         return redirect('/login')
     print(session['user'])
     user_uniqname = session['user']['sub']
