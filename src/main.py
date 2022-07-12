@@ -19,7 +19,8 @@ oauth.register(
     client_secret = config('OIDC_CLIENT_SECRET'),
     server_metadata_url=CONF_URL,
     client_kwargs={
-        "scope": "openid profile email offline_access edumember eduperson"
+        # openid profile email offline_access 
+        "scope": "edumember eduperson"
     }
 
 )
