@@ -9,7 +9,8 @@ app = Flask(__name__, template_folder="./templates")
 
 app.secret_key = '!secret'
 
-CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
+# CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
+CONF_URL = 'https://shib-idp-staging.dsc.umich.edu/.well-known/openid-configuration'
 HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
 
 oauth = OAuth(app)
@@ -18,9 +19,8 @@ oauth.register(
     client_id = config('OIDC_CLIENT_ID'),
     client_secret = config('OIDC_CLIENT_SECRET'),
     server_metadata_url=CONF_URL,
-    client_kwargs={
-        # openid profile email offline_access 
-        "scope": "edumember eduperson"
+    client_kwargs={ 
+        "scope": "openid profile email offline_access edumember eduperson"
     }
 
 )
@@ -35,7 +35,6 @@ def login():
 def auth():
     token = oauth.HeyesForms.authorize_access_token()
     user = token.get('userinfo')
-    print(token)
     if user:
         session['user'] = user
     return redirect('/home')
@@ -49,9 +48,10 @@ def logout():
 
 @app.route('/home', methods=['GET'])
 def get_home():
-    user_uniqname = session['user']['sub']
+    if user not in session:
+        return redirect('/login')
     print(session['user'])
-    print(session['user']['sub'])
+    user_uniqname = session['user']['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
     sub_count = gsheets.get_total_submission_count()
