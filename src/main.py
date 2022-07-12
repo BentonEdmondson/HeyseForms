@@ -19,12 +19,10 @@ oauth.register(
     client_secret = config('OIDC_CLIENT_SECRET'),
     server_metadata_url=CONF_URL,
     client_kwargs={
-        "scope": "openid profile email offline_access eduperson_affiliation eduperson_scoped_affiliation"
+        "scope": "openid profile email offline_access eduperson_affiliation eduperson_scoped_affiliation edumember"
     }
 
 )
-
-global user_uniqname
 
 @app.route('/login')
 def login():
@@ -49,8 +47,9 @@ def logout():
 
 @app.route('/home', methods=['GET'])
 def get_home():
-    user = session.get('user') 
-    user_uniqname = user['sub']
+    user_uniqname = session['user']['sub']
+    print(session['user'])
+    print(session['user']['sub'])
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
     sub_count = gsheets.get_total_submission_count()
