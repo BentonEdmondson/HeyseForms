@@ -3,6 +3,7 @@ from flask import Flask, Blueprint, render_template, redirect, request, url_for,
 from authlib.integrations.flask_client import OAuth
 from decouple import config
 import sheets_api.sheets as gsheets
+import requests
 import re
 
 app = Flask(__name__, template_folder="./templates")
@@ -35,6 +36,9 @@ def login():
 def auth():
     token = oauth.HeyesForms.authorize_access_token()
     user = token.get('userinfo')
+    # request to userinfo endpoint
+    r = requests.get(url=https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo, params={access_token:token})
+    print(r.json())
     if user:
         session['user'] = user
     return redirect('/home')
