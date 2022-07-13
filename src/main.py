@@ -40,9 +40,10 @@ def auth():
     # request to userinfo endpoint
     # r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     r = requests.get(url='https://shibboleth.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
-    data = r.json()
-    if 'edumember_ismemberof' in data:
-        print(data['edumember_ismemberof'])
+    session['data'] = r.json()
+    if 'edumember_ismemberof' in session['data']:
+        if 'ITS Internship Planning' in session['data']['edumember_ismemberof']:
+            print("YES THIS PERSON IS ALLOWED TO ENTER")
     if user:
         session['user'] = user
     return redirect('/home')
@@ -58,6 +59,8 @@ def logout():
 def get_home():
     if session['user'] is None:
         return redirect('/login')
+    print("THIS IS TO MAKE SURE THAT WE CAN SEE THIS DATA LATER")
+    print(session['data'])
     print(session['user'])
     user_uniqname = session['user']['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
