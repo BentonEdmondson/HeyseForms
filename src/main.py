@@ -10,8 +10,8 @@ app = Flask(__name__, template_folder="./templates")
 
 app.secret_key = '!secret'
 
-# CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
-CONF_URL = 'https://shib-idp-staging.dsc.umich.edu/.well-known/openid-configuration'
+CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
+# CONF_URL = 'https://shib-idp-staging.dsc.umich.edu/.well-known/openid-configuration'
 HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
 
 oauth = OAuth(app)
@@ -38,7 +38,8 @@ def auth():
     user = token.get('userinfo')
     access_token = token['access_token']
     # request to userinfo endpoint
-    r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
+    # r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
+    r = requests.get(url='https://shibboleth.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     print(r.json())
     if user:
         session['user'] = user
