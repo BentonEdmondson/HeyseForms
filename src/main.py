@@ -37,6 +37,8 @@ def auth():
     token = oauth.HeyesForms.authorize_access_token()
     user = token.get('userinfo')
     # request to userinfo endpoint
+    d = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/token')
+    print(d)
     r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':token})
     print(r.json())
     if user:
