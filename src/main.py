@@ -40,7 +40,9 @@ def auth():
     # request to userinfo endpoint
     # r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     r = requests.get(url='https://shibboleth.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
-    print(r.json())
+    data = r.json()
+    if 'edumember_ismemberof' in data:
+        print(data['edumember_ismemberof'])
     if user:
         session['user'] = user
     return redirect('/home')
