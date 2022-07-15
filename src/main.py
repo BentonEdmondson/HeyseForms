@@ -79,7 +79,7 @@ def get_home():
     # if session['data'] is None:
     #     return redirect('/noauth')
     uniqname_user = session['user']['sub']
-    interns = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
+    interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname_user}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
     sub_count = gsheets.get_total_submission_count()
     for entry in entries:
