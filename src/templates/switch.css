@@ -184,3 +184,7 @@ textarea {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
 }
+
+.setmain{
+    margin: 1rem 1.5rem 1rem 1.5rem;
+}
