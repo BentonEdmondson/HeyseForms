@@ -40,28 +40,44 @@ def auth():
     # request to userinfo endpoint
     # r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     r = requests.get(url='https://shibboleth.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
-    session['data'] = r.json()
-    if 'edumember_ismemberof' in session['data']:
-        if 'ITS Internship Planning' in session['data']['edumember_ismemberof']:
-            print("YES THIS PERSON IS ALLOWED TO ENTER")
+    # uncomment when ready for prod
+    # temp = r.json()
+    # if 'edumember_ismemberof' in temp:
+    #     if 'ITS Internship Planning' in temp['edumember_ismemberof']:
+    #         if user:
+    #           session['user'] = user
+    #           session['data'] = temp
+    #           return redirect('/home')    
+    # else:
+    #   return redirect('/noauth')
     if user:
         session['user'] = user
     return redirect('/home')
 
 
+@app.route('/noauth')
+def noauth():
+    return render_template('noauth.j2')
+
+
 @app.route('/logout')
 def logout():
     session.pop('user', None)
+    session.pop('data', None)
     return redirect('/login')
 
 
 @app.route('/home', methods=['GET'])
 def get_home():
+    if 'user' not in session:
+        return redirect('/login')    
     if session['user'] is None:
         return redirect('/login')
-    print("THIS IS TO MAKE SURE THAT WE CAN SEE THIS DATA LATER")
-    print(session['data'])
-    print(session['user'])
+    # uncomment when ready for prod
+    # if 'data' not in session:
+    #     return redirect('/noauth')
+    # if session['data'] is None:
+    #     return redirect('/noauth')
     user_uniqname = session['user']['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{user_uniqname}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
