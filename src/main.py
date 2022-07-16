@@ -67,7 +67,8 @@ def noauth():
 @app.route('/logout')
 def logout():
     session.pop('user', None)
-    session.pop('data', None)
+    if 'data' in session:
+        session.pop('data', None)
     return redirect('/login')
 
 
