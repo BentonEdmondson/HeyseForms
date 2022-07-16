@@ -54,6 +54,8 @@ def auth():
             session['data'] = temp
             return redirect('/home')
     else:
+        if user:
+            session['user'] = user
         return redirect('/noauth')
 
 
