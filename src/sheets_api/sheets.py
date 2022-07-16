@@ -117,7 +117,9 @@ def get_supervisor_interns(supervisor_email: str) -> dict:
     result = {}
     for supervisor in supervisors:
         if supervisor["Email"] == supervisor_email:
-            interns = supervisor["Interns"].split(", ")
+            interns = []
+            if "Interns" in supervisor:
+                interns = supervisor["Interns"].split(", ")
             for intern in interns:
                 result[intern + "@umich.edu"] = {
                     "uniqname": intern,
