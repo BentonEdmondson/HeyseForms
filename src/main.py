@@ -40,19 +40,22 @@ def auth():
     # request to userinfo endpoint
     # r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     r = requests.get(url='https://shibboleth.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
-    # uncomment when ready for prod
-    # temp = r.json()
-    # if 'edumember_ismemberof' in temp:
-    #     if 'ITS Internship Planning' in temp['edumember_ismemberof']:
-    #         if user:
-    #           session['user'] = user
-    #           session['data'] = temp
-    #           return redirect('/home')    
-    # else:
-    #   return redirect('/noauth')
-    if user:
-        session['user'] = user
-    return redirect('/home')
+    temp = r.json()
+    admins = ['jeonghin', 'alvaradx', 'kfliu', 'atharvak', 'oluwake', 'benton']
+    if 'edumember_ismemberof' in temp:
+        if 'ITS Internship Planning' in temp['edumember_ismemberof']:
+            if user:
+                session['user'] = user
+                session['data'] = temp
+                return redirect('/home')    
+    elif:
+        if user:
+            if temp['sub'] in admins:
+               session['user'] = user
+               session['data'] = temp
+               return redirect('/home')
+    else:
+        return redirect('/noauth')
 
 
 @app.route('/noauth')
@@ -77,11 +80,10 @@ def get_home():
         return redirect('/login')    
     if session['user'] is None:
         return redirect('/login')
-    # uncomment when ready for prod
-    # if 'data' not in session:
-    #     return redirect('/noauth')
-    # if session['data'] is None:
-    #     return redirect('/noauth')
+    if 'data' not in session:
+        return redirect('/noauth')
+    if session['data'] is None:
+        return redirect('/noauth')
     uniqname_user = session['user']['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname_user}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
