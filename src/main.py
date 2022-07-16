@@ -41,19 +41,18 @@ def auth():
     # r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     r = requests.get(url='https://shibboleth.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     temp = r.json()
-    admins = ['jeonghin', 'alvaradx', 'kfliu', 'atharvak', 'oluwake', 'benton']
+    admins = ['jeonghin', 'kfliu', 'atharvak', 'oluwake', 'benton']
     if 'edumember_ismemberof' in temp:
         if 'ITS Internship Planning' in temp['edumember_ismemberof']:
             if user:
                 session['user'] = user
                 session['data'] = temp
                 return redirect('/home')    
-    elif:
+    elif temp['sub'] in admins:
         if user:
-            if temp['sub'] in admins:
-               session['user'] = user
-               session['data'] = temp
-               return redirect('/home')
+            session['user'] = user
+            session['data'] = temp
+            return redirect('/home')
     else:
         return redirect('/noauth')
 
