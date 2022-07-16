@@ -67,6 +67,10 @@ def logout():
     return redirect('/login')
 
 
+@app.route('/')
+def get_get_home():
+    return redirect('/home')
+
 @app.route('/home', methods=['GET'])
 def get_home():
     if 'user' not in session:
