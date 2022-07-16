@@ -61,7 +61,7 @@ def auth():
 
 @app.route('/noauth')
 def noauth():
-    return render_template('noauth.j2')
+    return render_template('noauth.j2', uniqname_user=session['user']['sub'])
 
 
 @app.route('/logout')
