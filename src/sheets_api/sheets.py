@@ -67,7 +67,7 @@ def get_all_intern_entries(creds: Credentials) -> list:
 
     service = build('sheets', 'v4', credentials=creds)
     sheet = service.spreadsheets()
-    my_range = "Response!A1:E"
+    my_range = "Response!A1:Z"
 
     data = sheet.values().get(spreadsheetId=HEYSE_FORMS_SAMPLE_SPREADSHEET_ID,
                                 range=my_range).execute()
