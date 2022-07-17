@@ -13,6 +13,7 @@ app.secret_key = '!secret'
 CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
 # CONF_URL = 'https://shib-idp-staging.dsc.umich.edu/.well-known/openid-configuration'
 HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
+ITS_WEBPAGE = 'https://its.umich.edu/'
 
 oauth = OAuth(app)
 oauth.register(
@@ -66,7 +67,8 @@ def noauth():
 def logout():
     session.pop('user', None)
     session.pop('data', None)
-    return redirect('/login')
+    # return redirect('/login')
+    return redirect(ITS_WEBPAGE, code=302)
 
 
 @app.route('/')
