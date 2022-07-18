@@ -110,12 +110,12 @@ def get_homeadmin():
     return render_template('homeadmin.j2', interns=interns,sub_count=sub_count, uniqname_user=uniqname_user)
 
 
-@app.route('/responses/<uniqname>', methods=['GET'])
+@app.route('/responses/<uniqname>', methods=['POST'])
 def get_default_response(uniqname: str):
     return redirect('/responses/' + uniqname + '/1')
 
 
-@app.route('/responses/<uniqname>/<entry>', methods=['GET'])
+@app.route('/responses/<uniqname>/<entry>', methods=['POST'])
 def get_response(uniqname: str, entry: int):
     entries = gsheets.get_intern_entries(intern_email=uniqname + "@umich.edu")
     return render_template(
