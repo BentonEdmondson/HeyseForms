@@ -60,7 +60,7 @@ def auth():
 
 
 def must_be_loggedin(func):
-    def checking():
+    def checking(**kwargs):
         if 'user' not in session:
             return redirect('/login')
         elif session['user'] is None:
@@ -70,7 +70,7 @@ def must_be_loggedin(func):
         elif session['data'] is None:
             return redirect('/noauth')
         else:
-            func()
+            func(kwargs)
     # this is a fix for overwriting existing endpoint
     checking.__name__ = func.__name__
     return checking
