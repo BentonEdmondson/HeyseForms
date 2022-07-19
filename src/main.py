@@ -71,6 +71,8 @@ def must_be_loggedin(func):
             return redirect('/noauth')
         else:
             func()
+    # this is a fix for overwriting existing endpoint
+    checking.__name__ = func.__name__
     return checking
 
 
