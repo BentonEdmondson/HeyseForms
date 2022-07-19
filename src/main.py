@@ -177,7 +177,9 @@ def add_intern():
     all_supervisor_data = gsheets.get_all_supervisor_data()
     for idx, supervisor in enumerate(all_supervisor_data):
         if supervisor["Email"] == f"{uniqname_user}@umich.edu":
-            interns = supervisor["Interns"].split(", ")
+            interns = []
+            if "Interns" in supervisor:
+                interns = supervisor["Interns"].split(", ")
             uniqname_pattern =  re.compile("^(?=.{2,255}$)[a-z]+$")
             if not uniqname_pattern.match(request.form.get("intern_uniqname")):
                 print("Invalid Uniqname!")
