@@ -160,28 +160,31 @@ img {
 	<p>This section provides information about how to navigate / use HeyseForms.</p>  
 
 	<h3>Login Page</h3> 
-	<p>To login, please visit https://heyseforms.webplatformsnonprod.umich.edu/login</p>
+	<p>To login, please visit <a href="https://heyseforms.webplatformsnonprod.umich.edu/login" target="_blank">https://heyseforms.webplatformsnonprod.umich.edu/login</a></p>
 
 	<h3>Logout Page</h3> 
-	<img src="images/logout.png" alt="Logout" style="width:50%;">
+	<img src="{{ url_for('static', filename = 'images/logout.png') }}" alt="Logout" style="width:50%;">
+
 
 	<h3>Viewing Interns' Responses</h3> 
-	<p style="color:red;">To be replaced.</p>
+	<img src="{{ url_for('static', filename = 'images/view_intern.png') }}" alt="View Interns' Responses" style="width:50%;">
 
 	<h3>Viewing Interns' Responses (Entries)</h3> 
-	<p style="color:red;">To be replaced.</p>
+	<p>After clicking the intern's uniqname in homepage, you will be navigated to a page with all the intern's response entries.</p>
+	<img src="{{ url_for('static', filename = 'images/view_intern_entries.png') }}" alt="View Interns' Entries" style="width:50%;">
 
 	<h3>Replying To Intern's Responses</h3> 
-	<p style="color:red;">To be replaced.</p>
+	<p>Beside each intern's response entry, there will be a column to reply.</p>
+	<img src="{{ url_for('static', filename = 'images/reply.png') }}" alt="View Interns' Entries" style="width:50%;">
 
 	<h3>Viewing Google Spreadsheet</h3> 
-	<img src="images/gsheet.png" alt="View Google Spreadsheet" style="width:50%;">
+	<img src="{{ url_for('static', filename = 'images/gsheet.png') }}" alt="View Google Spreadsheet" style="width:50%;">
 
 	<h3>Turn On Email Notifications</h3> 
-	<img src="images/email_on.png" alt="Email Reminder On" style="width:50%;">
+	<img src="{{ url_for('static', filename = 'images/email_on.png') }}" alt="Email Reminder On" style="width:50%;">
 
 	<h3>Turn Off Email Notifications</h3> 
-	<img src="images/email_off.png" alt="Email Reminder Off" style="width:50%;">
+	<img src="{{ url_for('static', filename = 'images/email_off.png') }}" alt="Email Reminder Off" style="width:50%;">
 
 
 
