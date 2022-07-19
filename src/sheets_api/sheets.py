@@ -129,13 +129,16 @@ def get_supervisor_interns(supervisor_email: str) -> dict:
 
 def get_all_interns() -> list:
     supervisors = get_all_supervisor_data()
+    check_set = set()
     result = []
     for supervisor in supervisors:
         interns = supervisor["Interns"].split(", ")
         for intern in interns:
-            result.append({
-                "uniqname": intern
-            })
+            if intern not in check_set:
+                check_set.add(intern)
+                result.append({
+                    "uniqname": intern
+                })
     return result
 
 
