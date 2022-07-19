@@ -72,7 +72,7 @@ def must_be_loggedin(func):
         elif len(kwargs) == 1:
             return func(kwargs.get('uniqname'))
         elif len(kwargs) == 2:
-            return fun(kwargs.get('uniqname'), kwargs.get('entry'))
+            return func(kwargs.get('uniqname'), kwargs.get('entry'))
         else:
             return func()
     # this is a fix for overwriting existing endpoint
