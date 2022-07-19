@@ -8,18 +8,115 @@
 {% endblock %}
 
 {% block main %}
+<style scoped>
+table.browserref .bsChrome {
+    background-image: url(https://www.w3schools.com/images/compatible_chrome.png);
+}
+table.browserref .bsEdge {
+    background-image: url(https://www.w3schools.com/images/compatible_edge.png);
+}
+table.browserref .bsFirefox {
+    background-image: url(https://www.w3schools.com/images/compatible_firefox.png);
+}
+table.browserref .bsSafari {
+    background-image: url(https://www.w3schools.com/images/compatible_safari.png);
+}
+table.browserref .bsOpera {
+    background-image: url(https://www.w3schools.com/images/compatible_opera.png);
+}
+#myBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+}
+
+#myBtn:hover {
+  background-color: grey;
+}
+</style>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
 <div class="row" style="margin:auto;width:90%;">
 
-	<h1>Documentations for HeyseForms</h1>        
+	<h1 id="documentations">Documentations for HeyseForms</h1>        
 	<p>This document provides information about:</p>      
 	<ul>
-		<li>Requirements for using the HeyseForms</li>
-		<li>Setting up the HeyseForms.</li>
-		<li>Navigating the HeyseForms.</li>
-		<li>Understanding the error messages from the HeyseForms.</li>
-		<li>Maintaining the HeyseForms.</li>
+		<li><a href="#requirements">Requirements for using the HeyseForms</a></li>
+		<li><a href="#setting">Setting up the HeyseForms</a></li>
+		<li><a href="#navigating">Navigating the HeyseForms</a></li>
+		<li><a href="#understanding">Understanding the error messages from the HeyseForms</a></li>
+		<li><a href="#maintaining">Maintaining the HeyseForms</a></li>
+	</ul>
+	
+	<!-- Requirements -->
+	<h2 id="requirements">Requirements for using the HeyseForms</h2>
+	<p>This section provides information about the requirements for using the HeyseForms.</p>  
+
+	<h3>Browsers</h3>
+	<p>HeyseForms can be used in these browsers:</p>  
+	<table class="browserref notranslate">
+		<tbody>
+			<tr>
+				<th style="width:20%;text-align:left;">Browsers</th>
+				<th style="width:20%;" class="bsChrome" title="Chrome"></th>
+				<th style="width:20%;" class="bsEdge" title="Microsoft Edge"></th>
+				<th style="width:20%;" class="bsFirefox" title="Firefox"></th>
+				<th style="width:20%;" class="bsSafari" title="Safari"></th>
+			</tr>
+			<tr>
+				<td style="text-align:left;">Status</td>
+				<td><p style="color:red;"><strong>Preferred</strong></p></td>
+				<td><p>Supported</p></td>
+				<td><p>Supported</p></td>
+				<td><p>Supported</p></td>
+			</tr>
+		</tbody>
+	</table>   
+
+	<h3>Device & Screen size</h3> 
+	<p>It is recommended to use HeyseForms on devices with:</p>  
+	<ul style="list-style-type:none;">
+		<li>Minimum Width: 700px</li>
+		<li>Minimum Height: 400px</li>
+	</ul>
+
+	<h3>Authorization</h3> 
+	<p>To use HeyseForms, you must be part of the <a href="ITS-Internship-Planning@umich.edu">ITS Internship Planning</a> Team. Please contact the team to receive authorization.</p>  
+	
+	<h3>Admin Pages</h3> 
+	<p>All authorized supervisors are allowed to access the admin pages:</p> 
+	<ul style="list-style-type:none;">
+		<li><a href="/homeadmin" target="_blank">Home</a></li>
+		<li><a href="/settingsadmin" target="_blank">Settings</a></li>
 	</ul>
 
 </div>	
+<script>
+//Get the button
+var mybutton = document.getElementById("myBtn");
 
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
 {% endblock %}
