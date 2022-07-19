@@ -24,7 +24,6 @@ oauth.register(
     client_kwargs={ 
         "scope": "openid profile email offline_access edumember eduperson"
     }
-
 )
 
 @app.route('/login')
@@ -60,6 +59,21 @@ def auth():
         return redirect('/noauth')
 
 
+def must_be_loggedin(func):
+    def wrapper():
+        if 'user' in session:
+            return redirect('/login')
+        elif session['user'] is None:
+            return redirect('/login')
+        elif 'data' in session:
+            return redirect('/noauth')
+        elif session['data'] is None:
+            return redirect('/noauth')
+        else:
+            func()
+    return wrapper
+
+
 @app.route('/noauth')
 def noauth():
     return render_template('noauth.j2', uniqname_user=session['user']['sub'])
@@ -74,10 +88,13 @@ def logout():
 
 
 @app.route('/')
+@must_be_loggedin
 def get_get_home():
     return redirect('/home')
 
+
 @app.route('/home', methods=['GET'])
+@must_be_loggedin
 def get_home():
     if 'user' not in session:
         return redirect('/login')    
@@ -100,6 +117,7 @@ def get_home():
 
 
 @app.route('/homeadmin', methods=['GET'])
+@must_be_loggedin
 def get_homeadmin():
     uniqname_user = session['user']['sub']
     interns = gsheets.get_all_interns()
@@ -112,11 +130,13 @@ def get_homeadmin():
 
 
 @app.route('/responses/<uniqname>', methods=['GET'])
+@must_be_loggedin
 def get_default_response(uniqname: str):
     return redirect('/responses/' + uniqname + '/1')
 
 
 @app.route('/responses/<uniqname>/<entry>', methods=['GET'])
+@must_be_loggedin
 def get_response(uniqname: str, entry: int):
     entries = gsheets.get_intern_entries(intern_email=uniqname + "@umich.edu")
     return render_template(
@@ -130,12 +150,14 @@ def get_response(uniqname: str, entry: int):
 
 
 @app.route('/gsheet', methods=['GET'])
+@must_be_loggedin
 def get_gsheet():
     link = gsheets.get_spreadsheet_URL()
     return redirect(link, code=302)
 
 
 @app.route('/settings', methods=['GET'])
+@must_be_loggedin
 def get_settings():
     uniqname_user = session['user']['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname_user}@umich.edu")
@@ -153,6 +175,7 @@ def get_settings():
 
 
 @app.route('/settings/addIntern', methods=['POST'])
+@must_be_loggedin
 def add_intern():
     uniqname_user = session['user']['sub']
     all_supervisor_data = gsheets.get_all_supervisor_data()
@@ -171,6 +194,7 @@ def add_intern():
 
 
 @app.route('/settings/removeIntern', methods=['POST'])
+@must_be_loggedin
 def remove_intern():
     uniqname_user = session['user']['sub']
     all_supervisor_data = gsheets.get_all_supervisor_data()
@@ -185,6 +209,7 @@ def remove_intern():
 
 
 @app.route('/settings/toggleReminder', methods=['POST'])
+@must_be_loggedin
 def toggle_reminder():
     uniqname_user = session['user']['sub']
     all_supervisor_data = gsheets.get_all_supervisor_data()
@@ -200,6 +225,7 @@ def toggle_reminder():
 
 
 @app.route('/settingsadmin', methods=['GET'])
+@must_be_loggedin
 def get_settingsadmin():
     uniqname_user = session['user']['sub']
     interns = gsheets.get_all_interns()
@@ -215,6 +241,7 @@ def get_settingsadmin():
 
 
 @app.route('/settingsadmin/changeSpreadsheetURL', methods=['POST'])
+@must_be_loggedin
 def update_spreadsheet_link():
     gsheets.set_spreadsheet_URL(request.form.get("spreadsheetLink"))
     return redirect("/settingsadmin")
