@@ -70,6 +70,7 @@ def must_be_loggedin(func):
         elif session['data'] is None:
             return redirect('/noauth')
         elif len(kwargs) != 0:
+            print(kwargs)
             return func(kwargs)
         else:
             return func()
