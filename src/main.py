@@ -228,5 +228,15 @@ def invalid_route(e):
         '404.j2',
         uniqname_user=uniqname_user)
 
+@app.route('/documentations', methods=['GET'])
+def get_documentations():
+    uniqname_user = session['user']['sub']
+    link = gsheets.get_spreadsheet_URL()
+    return render_template(
+        'documentations.j2',
+        link = link,
+        uniqname_user = uniqname_user
+    )
+
 if __name__ == "__main__":
     app.run()
