@@ -60,19 +60,18 @@ def auth():
 
 
 def must_be_loggedin(func):
-    def wrapper():
-        if 'user' in session:
+    def checking():
+        if 'user' not in session:
             return redirect('/login')
         elif session['user'] is None:
             return redirect('/login')
-        elif 'data' in session:
+        elif 'data' not in session:
             return redirect('/noauth')
         elif session['data'] is None:
             return redirect('/noauth')
         else:
             func()
-    wrapper.__name__ = func.__name__
-    return wrapper
+    return checking
 
 
 @app.route('/noauth')
