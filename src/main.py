@@ -71,6 +71,7 @@ def must_be_loggedin(func):
             return redirect('/noauth')
         else:
             func()
+    wrapper.__name__ = func.__name__
     return wrapper
 
 
