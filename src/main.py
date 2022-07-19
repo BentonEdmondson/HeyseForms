@@ -15,17 +15,17 @@ CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
 HEYESFORMS_AUTHORIZE_URL = 'https://heyseforms.webplatformsnonprod.umich.edu/auth'
 ITS_WEBPAGE = 'https://its.umich.edu/'
 
-# oauth = OAuth(app)
-# oauth.register(
-#     name='HeyesForms',
-#     client_id = config('OIDC_CLIENT_ID'),
-#     client_secret = config('OIDC_CLIENT_SECRET'),
-#     server_metadata_url=CONF_URL,
-#     client_kwargs={ 
-#         "scope": "openid profile email offline_access edumember eduperson"
-#     }
+oauth = OAuth(app)
+oauth.register(
+    name='HeyesForms',
+    client_id = config('OIDC_CLIENT_ID'),
+    client_secret = config('OIDC_CLIENT_SECRET'),
+    server_metadata_url=CONF_URL,
+    client_kwargs={ 
+        "scope": "openid profile email offline_access edumember eduperson"
+    }
 
-# )
+)
 
 @app.route('/login')
 def login():
@@ -229,12 +229,10 @@ def invalid_route(e):
 
 @app.route('/documentations', methods=['GET'])
 def get_documentations():
-    # uniqname_user = session['user']['sub']
-    # link = gsheets.get_spreadsheet_URL()
+    uniqname_user = session['user']['sub']
     return render_template(
-        'documentations.j2'#,
-        # link = link,
-        # uniqname_user = uniqname_user
+        'documentations.j2',
+        uniqname_user = uniqname_user
     )
 
 if __name__ == "__main__":
