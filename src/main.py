@@ -101,6 +101,7 @@ def get_home():
 
 @app.route('/homeadmin', methods=['GET'])
 def get_homeadmin():
+    uniqname_user = session['user']['sub']
     interns = gsheets.get_all_interns()
     sub_count = gsheets.get_total_submission_count()
     for intern in interns:
@@ -132,7 +133,6 @@ def get_response(uniqname: str, entry: int):
 def get_gsheet():
     link = gsheets.get_spreadsheet_URL()
     return redirect(link, code=302)
-    #return render_template('gsheet.j2', link = link)
 
 
 @app.route('/settings', methods=['GET'])
@@ -222,7 +222,18 @@ def update_spreadsheet_link():
 
 @app.errorhandler(404) 
 def invalid_route(e): 
-    return render_template('404.j2')
+    uniqname_user = session['user']['sub']
+    return render_template(
+        '404.j2',
+        uniqname_user=uniqname_user)
+
+@app.route('/documentations', methods=['GET'])
+def get_documentations():
+    uniqname_user = session['user']['sub']
+    return render_template(
+        'documentations.j2',
+        uniqname_user = uniqname_user
+    )
 
 if __name__ == "__main__":
     app.run()

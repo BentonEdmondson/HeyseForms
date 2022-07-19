@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Settings – HeyseForms{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="/">HeyseForms</a></li>
+<li><a href="/documentations">Documentations</a></li>
+{% endblock %}
+
+{% block main %}
+<style scoped>
+table {
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing: 2px;
+}
+table.browserref {
+    border-collapse: collapse;
+    width: 100%;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+table.browserref .bsChrome {
+    background-image: url(https://www.w3schools.com/images/compatible_chrome.png);
+}
+table.browserref .bsEdge {
+    background-image: url(https://www.w3schools.com/images/compatible_edge.png);
+}
+table.browserref .bsFirefox {
+    background-image: url(https://www.w3schools.com/images/compatible_firefox.png);
+}
+table.browserref .bsSafari {
+    background-image: url(https://www.w3schools.com/images/compatible_safari.png);
+}
+table.browserref .bsOpera {
+    background-image: url(https://www.w3schools.com/images/compatible_opera.png);
+}
+table.browserref th {
+    height: 44px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 1px solid #d4d4d4;
+    background-color: #ffffff;
+    font-weight: normal;
+    color: #555555;
+    padding: 11px 0px 11px 0px;
+    vertical-align: middle;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#myBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+}
+
+#myBtn:hover {
+  background-color: grey;
+}
+</style>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+<div class="row" style="margin:auto;width:90%;">
+
+	<h1 id="documentations">Documentations for HeyseForms</h1>        
+	<p>This document provides information about:</p>      
+	<ol>
+		<h5><li><a href="#requirements">Requirements for using the HeyseForms</a></li></h5>
+		<h5><li><a href="#setting">Setting up the HeyseForms</a></li></h5>
+		<h5><li><a href="#navigating">Navigating HeyseForms</a></li></h5>
+		<h5><li><a href="#understanding">Understanding the error messages from HeyseForms</a></li></h5>
+		<h5><li><a href="#maintaining">Maintaining HeyseForms</a></li></h5>
+	</ol>
+	
+	<!-- Requirements -->
+	<h2 id="requirements">Requirements for using the HeyseForms</h2>
+	<p>This section provides information about the requirements for using the HeyseForms.</p>  
+
+	<h3>Browsers</h3>
+	<p>HeyseForms can be used in these browsers:</p>  
+	<table class="browserref notranslate">
+		<tbody>
+			<tr>
+				<th style="width:20%;text-align:center;">Browsers</th>
+				<th style="width:20%;" class="bsChrome" title="Chrome"></th>
+				<th style="width:20%;" class="bsEdge" title="Microsoft Edge"></th>
+				<th style="width:20%;" class="bsFirefox" title="Firefox"></th>
+				<th style="width:20%;" class="bsSafari" title="Safari"></th>
+			</tr>
+			<tr>
+				<th style="text-align:center;">Status</th>
+				<th><p style="color:red; text-align:center;"><strong>Preferred</strong></p></th>
+				<th><p style="text-align:center;">Supported</p></th>
+				<th><p style="text-align:center;">Supported</p></th>
+				<th><p style="text-align:center;">Supported</p></th>
+			</tr>
+		</tbody>
+	</table>   
+
+	<h3>Device & Screen size</h3> 
+	<p>It is recommended to use HeyseForms on devices with:</p>  
+	<ul style="list-style-type:none;">
+		<li>Minimum Width: 700px</li>
+		<li>Minimum Height: 500px</li>
+	</ul>
+
+	<h3>Authorization</h3> 
+	<p>To use HeyseForms, you must be part of the <a href="mailto:ITS-Internship-Planning@umich.edu">ITS Internship Planning</a> Team. Please contact the team to receive authorization.</p>  
+	
+	<h3>Admin Pages</h3> 
+	<p>All authorized supervisors are allowed to access the admin pages:</p> 
+	<ul style="list-style-type:none;">
+		<li><a href="/homeadmin" target="_blank">Home</a></li>
+		<li><a href="/settingsadmin" target="_blank">Settings</a></li>
+	</ul>
+
+
+
+
+	<!-- Setting -->
+	<h2 id="setting">Setting up the HeyseForms</h2>
+	<p>This section provides information about how to set up HeyseForms.</p>  
+
+	<h3>Creating Google Spreadsheet</h3> 
+	<p style="color:red;">To be replaced.</p>
+
+	<h3>Adding Google Spreadsheet</h3> 
+	<p style="color:red;">To be replaced.</p>
+
+	<h3>Adding Interns</h3> 
+	<p style="color:red;">To be replaced.</p>
+
+	<h3>Removing Interns</h3> 
+	<p style="color:red;">To be replaced.</p>	
+
+
+
+
+	<!-- Navigating -->
+	<h2 id="navigating">Navigating HeyseForms</h2>
+	<p>This section provides information about how to navigate / use HeyseForms.</p>  
+
+	<h3>Login Page</h3> 
+	<p>To login, please visit https://heyseforms.webplatformsnonprod.umich.edu/login</p>
+
+	<h3>Logout Page</h3> 
+	<img src="images/logout.png" alt="Logout" style="width:50%;">
+
+	<h3>Viewing Interns' Responses</h3> 
+	<p style="color:red;">To be replaced.</p>
+
+	<h3>Viewing Interns' Responses (Entries)</h3> 
+	<p style="color:red;">To be replaced.</p>
+
+	<h3>Replying To Intern's Responses</h3> 
+	<p style="color:red;">To be replaced.</p>
+
+	<h3>Viewing Google Spreadsheet</h3> 
+	<img src="images/gsheet.png" alt="View Google Spreadsheet" style="width:50%;">
+
+	<h3>Turn On Email Notifications</h3> 
+	<img src="images/email_on.png" alt="Email Reminder On" style="width:50%;">
+
+	<h3>Turn Off Email Notifications</h3> 
+	<img src="images/email_off.png" alt="Email Reminder Off" style="width:50%;">
+
+
+
+	<!-- Understanding -->
+	<h2 id="understanding">Understanding the error messages from HeyseForms</h2>
+	<p>This section provides information about some common error messages from HeyseForms.</p>  
+
+	<h3>noauth</h3> 
+	<p>If this error is shown, it means the user did not have the authorization to access that page. Please contact the <a href="mailto:ITS-Internship-Planning@umich.edu">ITS Internship Planning</a> Team for authorization.</p>  
+
+	<h3>404 Error</h3> 
+	<p>If this error is shown, it means that the page that the user was looking for can't be located. Please check ensure that the web address is correctly entered. You can also go back to the <a href="/home">home page</a>.</p>  
+
+	<h3>405 Error (Method Not Allowed)</h3> 
+	<p>If this error is shown, it means that the request method is known by the server but is not supported by the target resource. For example, an API may not allow calling DELETE to remove a resource.</p>  
+
+	<h3>500 Error (Internal Server Error)</h3> 
+	<p>If this error is shown, it means that the server encountered an internal error and was unable to complete the user's request. For HeyseForms, it is usually due to No Authorization issue. Please ensure that the user has the required authorization to access the page by contacting the <a href="mailto:ITS-Internship-Planning@umich.edu">ITS Internship Planning</a> Team. If problem persists, please contact the <a style="color:red;">maintainer</a>.</p>  
+
+	<h3>503 Error (Service Unavailable)</h3> 
+	<p>If this error is shown, it means that the server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded. Please check the ITS page to see if there are any scheduled maintenance or if services are down. If problem persists, please contact the <a style="color:red;">ITS Support Team</a>.</p>  
+
+	<h3>504 Error (Gateway Timeout)</h3> 
+	<p>If this error is shown, it means that the server is acting as a gateway and cannot get a response in time. Please try again later.</p>  
+
+	<h3>Other Errors</h3> 
+	<p>If any other errors occurred, the user can search online to learn more about the error codes. Please contact the <a style="color:red;">TBD</a> if problem persists.</p>  
+
+	<!-- Maintaining -->
+	<h2 id="maintaining">Maintaining HeyseForms</h2>
+	<p>This section provides information about how to maintain HeyseForms.</p>  
+
+	<h3>Authorization</h3> 
+	<p>In order to use HeyseForms every Summer, the admins should add that year's supervisors to the <a href="mailto:ITS-Internship-Planning@umich.edu">ITS Internship Planning</a> Team. Supervisors must be part of the group in Mcommunity to access HeyseForms.</p>  
+	
+	<h3>Admin Settings Page</h3> 
+	<p>All authorized supervisors are allowed to access the <a href="/settingsadmin" target="_blank">admin settings pages</a>. At least one of the supervisors/admins should ensure the latest Google Spreadsheet is used.</p>
+	<p>Refer to the <a href="#setting">Setting section</a> to read more about how to link the Google Spreadsheet.</p>
+
+	<h3>Container</h3> 
+	<p style="color:red;">To be replaced.</p>
+
+	<h3>Google API</h3> 
+	<p style="color:red;">To be replaced.</p>
+
+
+</div>	
+
+
+
+
+
+<script>
+//Get the button
+var mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+{% endblock %}
