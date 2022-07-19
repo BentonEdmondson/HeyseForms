@@ -96,14 +96,6 @@ def get_get_home():
 @app.route('/home', methods=['GET'])
 @must_be_loggedin
 def get_home():
-    if 'user' not in session:
-        return redirect('/login')    
-    if session['user'] is None:
-        return redirect('/login')
-    if 'data' not in session:
-        return redirect('/noauth')
-    if session['data'] is None:
-        return redirect('/noauth')
     uniqname_user = session['user']['sub']
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname_user}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
