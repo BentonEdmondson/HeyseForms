@@ -72,7 +72,7 @@ def must_be_loggedin(func):
         elif len(kwargs) != 0:
             func(kwargs)
         else:
-            fun()
+            func()
     # this is a fix for overwriting existing endpoint
     checking.__name__ = func.__name__
     return checking
