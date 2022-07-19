@@ -70,8 +70,8 @@ def must_be_loggedin(func):
         elif session['data'] is None:
             return redirect('/noauth')
         elif len(kwargs) != 0:
-            print(kwargs)
-            return func(kwargs)
+            for args in kwargs.values():
+                return func(args)
         else:
             return func()
     # this is a fix for overwriting existing endpoint
