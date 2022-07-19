@@ -41,7 +41,7 @@ def auth():
     # r = requests.get(url='https://shib-idp-staging.dsc.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     r = requests.get(url='https://shibboleth.umich.edu/idp/profile/oidc/userinfo', params={'access_token':access_token})
     temp = r.json()
-    admins = ['jeonghin', 'kfliu', 'atharvak', 'oluwake', 'benton']
+    admins = ['alvaradx', 'jeonghin', 'kfliu', 'atharvak', 'oluwake', 'benton']
     if 'edumember_ismemberof' in temp:
         if 'ITS Internship Planning' in temp['edumember_ismemberof']:
             if user:
@@ -69,10 +69,10 @@ def must_be_loggedin(func):
             return redirect('/noauth')
         elif session['data'] is None:
             return redirect('/noauth')
-        elif len(kwargs) != 0:
-            func(kwargs)
-        else:
-            func()
+        #elif len(kwargs) != 0:
+        #    func(kwargs)
+        #else:
+        #    func()
     # this is a fix for overwriting existing endpoint
     checking.__name__ = func.__name__
     return checking
