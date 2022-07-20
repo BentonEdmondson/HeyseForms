@@ -57,7 +57,7 @@
 						su: responseData.get("subject"),
 						body: responseData.get("message")
 					});
-					location.href = emailURL;
+					window.open(emailURL, "_blank");
 					return false;
 				};
 			</script>
