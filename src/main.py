@@ -106,11 +106,10 @@ def get_home():
     interns = gsheets.get_supervisor_interns(supervisor_email=f"{uniqname_user}@umich.edu")
     entries = gsheets.get_intern_entries(intern_emails=list(interns.keys()))
     sub_count = gsheets.get_total_submission_count()
+    for intern in interns:
+        interns[intern]["submission"] = 0
     for entry in entries:
-        if "submission" in interns[entry[gsheets.EMAIL_COLUMN_NAME]].keys():
-            interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] += 1
-        else:
-            interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] = 1
+        interns[entry[gsheets.EMAIL_COLUMN_NAME]]["submission"] += 1
     return render_template('home.j2', interns=interns, sub_count=sub_count, uniqname_user=uniqname_user)
 
 
