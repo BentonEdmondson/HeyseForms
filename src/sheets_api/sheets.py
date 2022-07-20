@@ -1,5 +1,8 @@
 from __future__ import print_function
 from collections import OrderedDict
+import datetime
+import string
+import numpy
 from datetime import date
 
 import os.path
@@ -41,9 +44,28 @@ def get_spreadsheet_URL():
     return link
 
 
-def get_total_submission_count():
-    days = abs(INTERNSHIP_START_DATE-date.today()).days
+@check_credentials
+def get_total_submission_count(creds: Credentials) -> int:
+    """
+    Gets start date.
+    """
+ 
+    service = build('sheets', 'v4', credentials=creds)
+    sheet = service.spreadsheets()
+    my_range = "Response!A2"
+
+    data = sheet.values().get(spreadsheetId=HEYSE_FORMS_SAMPLE_SPREADSHEET_ID,
+                                range=my_range).execute()
+    values = data.get('values')
+    date_time_obj = datetime.datetime.strptime(values, '%m/%d/%Y %H:%M:%S')
+    days = abs(date_time_obj-date.today()).days
+    
     return (days//7)+1
+
+
+# def get_total_submission_count():
+#     days = abs(INTERNSHIP_START_DATE-date.today()).days
+#     return (days//7)+1
 
 
 @check_credentials
@@ -56,6 +78,7 @@ def set_spreadsheet_URL(new_link: str, creds: Credentials):
         HEYSE_FORMS_SAMPLE_SPREADSHEET_ID=sheet_id
     except:
         print("ERROR: Could not find the spreadsheet ID. Please check your link.")
+
 
 
 @check_credentials
