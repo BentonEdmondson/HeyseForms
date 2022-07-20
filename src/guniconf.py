@@ -1,6 +1,6 @@
 # for deployment
 bind = '0.0.0.0:8000'
-workers = 3
+workers = 1
 
 # log to stdout - handy for docker
 accesslog = '-'
