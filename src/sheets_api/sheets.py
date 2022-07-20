@@ -51,9 +51,9 @@ def set_spreadsheet_URL(new_link: str, creds: Credentials):
     try:
         sheet_id = (new_link.split("/d/"))[1].split("/edit")[0]
         if not sheet_id:
-            HEYSE_FORMS_SAMPLE_SPREADSHEET_ID=sheet_id
-        else:
             raise Exception()
+        global HEYSE_FORMS_SAMPLE_SPREADSHEET_ID
+        HEYSE_FORMS_SAMPLE_SPREADSHEET_ID=sheet_id
     except:
         print("ERROR: Could not find the spreadsheet ID. Please check your link.")
 

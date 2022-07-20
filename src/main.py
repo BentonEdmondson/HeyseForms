@@ -153,6 +153,10 @@ def get_gsheet():
     link = gsheets.get_spreadsheet_URL()
     return redirect(link, code=302)
 
+@app.route('/responses')
+def get_get_responses():
+    return redirect('/home', code = 302)
+
 
 @app.route('/settings', methods=['GET'])
 @must_be_loggedin
