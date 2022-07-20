@@ -140,17 +140,25 @@ img {
 	<h2 id="setting">Setting up the HeyseForms</h2>
 	<p>This section provides information about how to set up HeyseForms.</p>  
 
+	<h3>Creating Google Forms</h3> 
+	<p>When creating Google Forms to collect interns' responses, make sure to automatically collect emails to ensure the first column contains timestamps and the second column contains email addresses.</p>
+	<img src="{{ url_for('static', filename = 'images/google_form.png') }}" alt="Creating Google Forms" style="width:50%;">
+
 	<h3>Creating Google Spreadsheet</h3> 
-	<p style="color:red;">To be replaced.</p>
+	<p>It is important to share the Google Spreadsheet with <a href="mailto:heyseform@gmail.com">heyseform@gmail.com</a>. Without sharing it, it is impossible to connect the Google Spreadsheet.</p>
+	<p>Please make sure the connected Google Spreadsheet has the following format for the first two columns.</p>	
+	<img src="{{ url_for('static', filename = 'images/google_spreadsheet.png') }}" alt="Creating Google Spreadsheet" style="width:50%;">
 
 	<h3>Adding Google Spreadsheet</h3> 
-	<p style="color:red;">To be replaced.</p>
+	<p>Navigate to the <a href="/settingsadmin">admin settings page</a> and connect the new Google Spreadsheet. Click Change after pasting the new URL into the input box.</p>	
+	<p>Please make sure that you have shared the Google Spreadsheet with <a href="mailto:heyseform@gmail.com">heyseform@gmail.com</a></p>
+	<img src="{{ url_for('static', filename = 'images/change_link.png') }}" alt="Adding Google Spreadsheet" style="width:50%;">
 
 	<h3>Adding Interns</h3> 
-	<p style="color:red;">To be replaced.</p>
+	<p>To add interns, navigate to your own <a href="/settings">settings page</a> and input your intern's uniqname</p>
 
 	<h3>Removing Interns</h3> 
-	<p style="color:red;">To be replaced.</p>	
+	<p>To remove interns, navigate to your own <a href="/settings">settings page</a> and input your intern's uniqname</p>
 
 
 
@@ -167,7 +175,7 @@ img {
 
 
 	<h3>Viewing Interns' Responses</h3> 
-	<img src="{{ url_for('static', filename = 'images/view_intern.png') }}" alt="View Interns' Responses" style="width:50%;">
+	<p>You can view all your interns' responses in the <a href="https://heyseforms.webplatformsnonprod.umich.edu/home">homepage</a></p>
 
 	<h3>Viewing Interns' Responses (Entries)</h3> 
 	<p>After clicking the intern's uniqname in homepage, you will be navigated to a page with all the intern's response entries.</p>
@@ -175,16 +183,13 @@ img {
 
 	<h3>Replying To Intern's Responses</h3> 
 	<p>Beside each intern's response entry, there will be a column to reply.</p>
-	<img src="{{ url_for('static', filename = 'images/reply.png') }}" alt="View Interns' Entries" style="width:50%;">
 
 	<h3>Viewing Google Spreadsheet</h3> 
-	<img src="{{ url_for('static', filename = 'images/gsheet.png') }}" alt="View Google Spreadsheet" style="width:50%;">
+	<p>Google Spreadsheet can be found in the navigation bar on the top of the page.</p>
 
-	<h3>Turn On Email Notifications</h3> 
-	<img src="{{ url_for('static', filename = 'images/email_on.png') }}" alt="Email Reminder On" style="width:50%;">
-
-	<h3>Turn Off Email Notifications</h3> 
-	<img src="{{ url_for('static', filename = 'images/email_off.png') }}" alt="Email Reminder Off" style="width:50%;">
+	<h3>Turn On / Off Email Notifications</h3> 
+	<p>Email notification is turned on when the toggle button is blue.</p>
+	<p>Email notification is turned off when the toggle button is grey.</p>
 
 
 
