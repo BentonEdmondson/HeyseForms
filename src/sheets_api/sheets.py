@@ -152,6 +152,15 @@ def get_supervisor_notifcation(supervisor_email: str) -> bool:
 
     return None
 
+def get_supervisor_email_list():
+    supervisors = get_all_supervisor_data()
+    result = []
+    for supervisor in supervisors:
+        if supervisor["Reminders"] == "1":
+                result.append(supervisor["Email"])
+    
+    return result
+
 
 @check_credentials
 def update_supervisor(supervisor_data: OrderedDict, my_range: str, creds: Credentials):
