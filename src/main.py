@@ -250,12 +250,16 @@ def update_spreadsheet_link():
     return redirect("/settingsadmin")
 
 
-@app.errorhandler(404) 
+@app.errorhandler(Exception) 
 def invalid_route(e): 
     uniqname_user = session['user']['sub']
+    print(e)
     return render_template(
         '404.j2',
-        uniqname_user=uniqname_user)
+        uniqname_user=uniqname_user,
+        my_error=e
+    )
+
 
 @app.route('/documentations', methods=['GET'])
 def get_documentations():
