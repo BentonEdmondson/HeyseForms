@@ -116,7 +116,6 @@ img {
 			</tr>
 		</tbody>
 	</table>   
-	<br><br><br><hr>
 
 	<h3>Device & Screen size</h3> 
 	<p>It is recommended to use HeyseForms on devices with:</p>  
@@ -143,14 +142,44 @@ img {
 	<h2 id="setting">Setting up the HeyseForms</h2>
 	<p>This section provides information about how to set up HeyseForms.</p>  
 
+	<h3>Video Walkthrough</h3>
+	<p>View the following video to learn more about the steps to set up Google Spreadsheet.</p>
+	<iframe width="100%" height="400" src="https://www.youtube.com/embed/oOfizRph2mI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	
 	<h3>Creating Google Forms</h3> 
 	<p>When creating Google Forms to collect interns' responses, make sure to automatically collect emails to ensure the first column contains timestamps and the second column contains email addresses.</p>
 	<img src="{{ url_for('static', filename = 'images/google_form.png') }}" alt="Creating Google Forms" style="width:50%;">
 
 	<h3>Creating Google Spreadsheet</h3> 
-	<p>It is important to share the Google Spreadsheet with <a href="mailto:heyseform@gmail.com">heyseform@gmail.com</a>. Without sharing it, it is impossible to connect the Google Spreadsheet.</p>
-	<p>Please make sure the connected Google Spreadsheet has the following format for the first two columns.</p>	
+	<p>It is important to share the Google Spreadsheet with <a href="mailto:heyseform@gmail.com">heyseform@gmail.com</a> & <a href="mailto:heyseform-service-account@heyseform.iam.gserviceaccount.com">heyseform-service-account@heyseform.iam.gserviceaccount.com</a>. Without sharing it, it is impossible to connect the Google Spreadsheet.</p>
+	<p style="color:red;">Please make sure there are two sheets created: <strong>Response</strong> and <strong>Record</strong> as shown in the diagram below.</p>
 	<img src="{{ url_for('static', filename = 'images/google_spreadsheet.png') }}" alt="Creating Google Spreadsheet" style="width:50%;">
+
+	<h4>Response</h4>
+	<p>Please follow the instructions below to modify the Response Sheet</p>
+	<ol>
+		<li>Please make sure the Google Spreadsheet has Timestamp in its first column and Email Address in its second column. This is because the column A2 will be used to determine the first day of the internship program while the Email Address will used to identify the interns' responses.</li>
+		<li>Please make sure that interns' responses are recorded within Column C to Column Z.</li>
+	</ol>
+	<img src="{{ url_for('static', filename = 'images/google_spreadsheet.png') }}" alt="Creating Google Spreadsheet" style="width:50%;">
+
+	<h4>Record</h4>
+	<p>Please follow the instructions below to modify the Record Sheet</p>
+	<ol>
+		<li>Please make sure the Google Spreadsheet has the keywords Name in A1, Email in A2, Reminders in A3 and Interns in A4.</li>
+		<li>It is compulsory to have the supervisors' names in Row 1.</li>
+		<li>It is compulsory to have the supervisors' umich emails in Row 2.</li>
+		<li>It is compulsory to have either 0 or 1 in Row 3. Supervisors can choose to edit their email reminder in their settings page.</li>
+		<li>It is optional to have the interns' uniqnames in Row 4. Supervisors can add their interns later in their settings page. If you choose to input the interns' uniqnames into the Spreadsheet, do remember: </li>
+			<ul>
+				<li>If there is only one intern, make sure to include the uniqname without a comma. Example: E4 and G4</li>
+				<li>If there is more than one intern, make sure to separate the uniqname with a comma. Example: F4</li>
+				<li>Never end the string of uniqnames with a comma</li>
+				<li>You can leave Row 4 empty.</li>
+			</ul>
+	</ol>
+	<img src="{{ url_for('static', filename = 'images/google_spreadsheet_record.png') }}" alt="Creating Google Spreadsheet" style="width:50%;">	
+	
 
 	<h3>Adding Google Spreadsheet</h3> 
 	<p>Navigate to the <a href="/settingsadmin">admin settings page</a> and connect the new Google Spreadsheet. Click Change after pasting the new URL into the input box.</p>	
@@ -213,7 +242,7 @@ img {
 	<p>If this error is shown, it means that the server encountered an internal error and was unable to complete the user's request. For HeyseForms, it is usually due to No Authorization issue. Please ensure that the user has the required authorization to access the page by contacting the <a href="mailto:ITS-Internship-Planning@umich.edu">ITS Internship Planning</a> Team. If problem persists, please contact the <a href="mailto:alvaradx@umich.edu">James Alvarado</a>.</p>  
 
 	<h3>503 Error (Service Unavailable)</h3> 
-	<p>If this error is shown, it means that the server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded. Please check the ITS page to see if there are any scheduled maintenance or if services are down. If problem persists, please contact the <a href="mailto:alvaradx@umich.edu">James Alvarado</a>.</p> 
+	<p>If this error is shown, it means that the server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded. Please check the ITS page to see if there are any scheduled maintenance or if services are down. If problem persists, please contact <a href="mailto:alvaradx@umich.edu">James Alvarado</a>.</p> 
 
 	<h3>504 Error (Gateway Timeout)</h3> 
 	<p>If this error is shown, it means that the server is acting as a gateway and cannot get a response in time. Please try again later.</p>  
