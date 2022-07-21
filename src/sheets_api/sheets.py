@@ -56,7 +56,7 @@ def get_total_submission_count(creds: Credentials) -> int:
     data = sheet.values().get(spreadsheetId=HEYSE_FORMS_SAMPLE_SPREADSHEET_ID,
                                 range=my_range).execute()
     values = data.get('values')
-    date_time_obj = datetime.datetime.strptime(values[0], '%m/%d/%Y %H:%M:%S')
+    date_time_obj = datetime.datetime.strptime(values[0][0], '%m/%d/%Y %H:%M:%S')
     days = abs(date_time_obj-date.today()).days
     
     return (days//7)+1
