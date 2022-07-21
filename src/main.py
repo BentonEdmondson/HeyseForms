@@ -164,8 +164,7 @@ def add_intern():
             interns = supervisor["Interns"].split(", ")
             uniqname_pattern =  re.compile("^(?=.{2,255}$)[a-z]+$")
             if not uniqname_pattern.match(request.form.get("intern_uniqname")):
-                print("Invalid Uniqname!")
-                return redirect("/settings")
+                raise Exception("Invalid Uniqname!")
             interns.append(request.form.get("intern_uniqname"))
             supervisor["Interns"] = ", ".join(interns)
             range = f"Record!{chr(65+idx+1)}1:{chr(65+idx+1)}4"
