@@ -59,7 +59,7 @@ def get_total_submission_count(creds: Credentials) -> int:
     print(values)
     print(values[0])
     date_time_obj = datetime.datetime.strptime(values[0][0], '%m/%d/%Y %H:%M:%S')
-    days = abs(date_time_obj-date.today()).days
+    days = abs(date_time_obj.date()-date.today()).days
     
     return (days//7)+1
 
