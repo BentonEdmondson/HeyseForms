@@ -2,7 +2,7 @@ from http.client import responses
 from flask import Flask, Blueprint, render_template, redirect, request, url_for, session
 from authlib.integrations.flask_client import OAuth
 from decouple import config
-import sheets_api.sheets as gsheets
+import sheets_api as gsheets
 import requests
 import re
 

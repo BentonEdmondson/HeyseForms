@@ -51,8 +51,21 @@ def set_spreadsheet_URL(new_link: str, creds: Credentials):
         sheet_id = (new_link.split("/d/"))[1].split("/edit")[0]
         if not sheet_id:
             raise Exception()
+        service = build('sheets', 'v4', credentials=creds)
+        sheet = service.spreadsheets()
+        # Test 1 - Response Sheet
+        my_range = "Response!A1:Z"
+        data = sheet.values().get(spreadsheetId=sheet_id,
+                                    range=my_range).execute()
+        # Test 2 - Record Sheet
+        my_range = "Record!A1:Z"
+        data = sheet.values().get(spreadsheetId=sheet_id,
+                                    range=my_range).execute()
+        
         global HEYSE_FORMS_SAMPLE_SPREADSHEET_ID
         HEYSE_FORMS_SAMPLE_SPREADSHEET_ID=sheet_id
+    except HttpError:
+        raise Exception("ERROR: The new spreadhseet link doesn't have proper permission or sheet names. Reverted to old link.")
     except:
         raise Exception("ERROR: Could not find the spreadsheet ID. Please check your link.")
 
