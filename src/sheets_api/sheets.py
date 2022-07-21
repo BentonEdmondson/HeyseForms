@@ -28,10 +28,9 @@ def check_credentials(func):
             try:
                 return func(creds=creds, *args, **kwargs)
             except HttpError as err:
-                print(err)
-                return
+                raise Exception(f"Error while requesting Google Sheet API. Reason: {err.reason}")
         
-        print("Could not find service account credentials.")
+        raise Exception("Could not find service account credentials.")
 
     return wrapper
 
@@ -55,7 +54,7 @@ def set_spreadsheet_URL(new_link: str, creds: Credentials):
         global HEYSE_FORMS_SAMPLE_SPREADSHEET_ID
         HEYSE_FORMS_SAMPLE_SPREADSHEET_ID=sheet_id
     except:
-        print("ERROR: Could not find the spreadsheet ID. Please check your link.")
+        raise Exception("ERROR: Could not find the spreadsheet ID. Please check your link.")
 
 
 @check_credentials
@@ -84,12 +83,15 @@ def get_all_intern_entries(creds: Credentials) -> list:
 
 
 def get_intern_entries(intern_email: str= "", intern_emails: list = []) -> dict:
-    entries = get_all_intern_entries()
-    result = []
-    for entry in entries:
-        if (entry[EMAIL_COLUMN_NAME] == intern_email) or (entry[EMAIL_COLUMN_NAME] in intern_emails):
-            result.append(entry)
-    return result
+    try:
+        entries = get_all_intern_entries()
+        result = []
+        for entry in entries:
+            if (entry[EMAIL_COLUMN_NAME] == intern_email) or (entry[EMAIL_COLUMN_NAME] in intern_emails):
+                result.append(entry)
+        return result
+    except Exception as e:
+        raise e
 
 
 @check_credentials
@@ -108,54 +110,61 @@ def get_all_supervisor_data(creds: Credentials) -> list:
         for row in values[1:]:
             entry = convert_to_dict(values[0], row)
             result.append(entry)
-    
     return result
 
 
 def get_supervisor_interns(supervisor_email: str) -> dict:
-    supervisors = get_all_supervisor_data()
-    result = {}
-    for supervisor in supervisors:
-        if supervisor["Email"] == supervisor_email:
-            interns = []
-            if "Interns" in supervisor:
-                interns = supervisor["Interns"].split(", ")
-            for intern in interns:
-                result[intern + "@umich.edu"] = {
-                    "uniqname": intern,
-                }
-    return result
+    try:
+        supervisors = get_all_supervisor_data()
+        result = {}
+        for supervisor in supervisors:
+            if supervisor["Email"] == supervisor_email:
+                interns = []
+                if "Interns" in supervisor:
+                    interns = supervisor["Interns"].split(", ")
+                for intern in interns:
+                    result[intern + "@umich.edu"] = {
+                        "uniqname": intern,
+                    }
+        return result
+    except Exception as e:
+        raise e
 
 
 def get_all_interns() -> list:
-    supervisors = get_all_supervisor_data()
-    check_set = set()
-    result = []
-    for supervisor in supervisors:
-        interns = supervisor["Interns"].split(", ")
-        for intern in interns:
-            if intern not in check_set:
-                check_set.add(intern)
-                result.append({
-                    "uniqname": intern
-                })
-    return result
+    try:
+        supervisors = get_all_supervisor_data()
+        check_set = set()
+        result = []
+        for supervisor in supervisors:
+            interns = supervisor["Interns"].split(", ")
+            for intern in interns:
+                if intern not in check_set:
+                    check_set.add(intern)
+                    result.append({
+                        "uniqname": intern
+                    })
+        return result
+    except Exception as e:
+        raise e
 
 
 def get_supervisor_notifcation(supervisor_email: str) -> bool:
-    supervisors = get_all_supervisor_data()
-    for supervisor in supervisors:
-        if supervisor["Email"] == supervisor_email:
-            if supervisor["Reminders"] == "1":
-                return True
-            return False
+    try:
+        supervisors = get_all_supervisor_data()
+        for supervisor in supervisors:
+            if supervisor["Email"] == supervisor_email:
+                if supervisor["Reminders"] == "1":
+                    return True
+                return False
 
-    return None
+        return None
+    except Exception as e:
+        raise e
 
 
 @check_credentials
 def update_supervisor(supervisor_data: OrderedDict, my_range: str, creds: Credentials):
-            
     service = build('sheets', 'v4', credentials=creds)
 
     body = {
@@ -175,7 +184,4 @@ def convert_to_dict(keys: list, values: list) -> dict:
 
 
 if __name__ == '__main__':
-    entries = get_intern_entries(intern_email="atharvak@umich.edu")
-    print(entries)
-    supervisor = get_supervisor_notifcation(supervisor_email="dheyse@umich.edu")
-    print(supervisor)
+    pass
