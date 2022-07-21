@@ -1,5 +1,8 @@
 from __future__ import print_function
 from collections import OrderedDict
+import datetime
+import string
+import numpy
 from datetime import date
 
 import os.path
@@ -40,9 +43,28 @@ def get_spreadsheet_URL():
     return link
 
 
-def get_total_submission_count():
-    days = abs(INTERNSHIP_START_DATE-date.today()).days
+@check_credentials
+def get_total_submission_count(creds: Credentials) -> int:
+    """
+    Gets start date.
+    """
+ 
+    service = build('sheets', 'v4', credentials=creds)
+    sheet = service.spreadsheets()
+    my_range = "Response!A2"
+
+    data = sheet.values().get(spreadsheetId=HEYSE_FORMS_SAMPLE_SPREADSHEET_ID,
+                                range=my_range).execute()
+    values = data.get('values')
+    date_time_obj = datetime.datetime.strptime(values, '%m/%d/%Y %H:%M:%S')
+    days = abs(date_time_obj-date.today()).days
+    
     return (days//7)+1
+
+
+# def get_total_submission_count():
+#     days = abs(INTERNSHIP_START_DATE-date.today()).days
+#     return (days//7)+1
 
 
 @check_credentials
@@ -68,6 +90,7 @@ def set_spreadsheet_URL(new_link: str, creds: Credentials):
         raise Exception("ERROR: The new spreadhseet link doesn't have proper permission or sheet names. Reverted to old link.")
     except:
         raise Exception("ERROR: Could not find the spreadsheet ID. Please check your link.")
+
 
 
 @check_credentials
@@ -174,6 +197,15 @@ def get_supervisor_notifcation(supervisor_email: str) -> bool:
         return None
     except Exception as e:
         raise e
+
+def get_supervisor_email_list():
+    supervisors = get_all_supervisor_data()
+    result = []
+    for supervisor in supervisors:
+        if supervisor["Reminders"] == "1":
+                result.append(supervisor["Email"])
+    
+    return result
 
 
 @check_credentials

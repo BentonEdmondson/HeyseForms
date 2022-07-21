@@ -41,13 +41,32 @@
 			</div>
 		</td>
 		<td>
-			<form>
+			<form onsubmit="return redirectToEmail()" id="responseForm">
 				<label for="subject">Subject:</label><br>
-				<input type="text" id="subject" required=""><br>
+				<input type="text" name="subject" id="subject" required><br>
 				<label for="message">Message:</label><br>
-				<textarea required=""></textarea><br><br>
+				<textarea id="message" name="message" required></textarea><br><br>
 				<input type="submit" value="Reply">
 			</form>
+			<script>
+				function redirectToEmail() {
+					let responseData = new FormData(document.forms.responseForm);
+					let emailURL = "https://mail.google.com/mail/?" + new URLSearchParams({
+						tf: "cm",
+						to: "{{ email }}",
+						su: responseData.get("subject"),
+						body: responseData.get("message")
+					});
+					window.open(emailURL, "_blank");
+					return false;
+				};
+			</script>
+			<style>
+				textarea {
+					font-family: inherit;
+					font-size: inherit;
+				}
+			</style>
 		</td>
 	</tr>
 </table>
