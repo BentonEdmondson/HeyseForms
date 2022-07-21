@@ -1,8 +1,6 @@
 from __future__ import print_function
 from collections import OrderedDict
 import datetime
-import string
-import numpy
 from datetime import date
 
 import os.path

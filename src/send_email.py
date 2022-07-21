@@ -1,6 +1,6 @@
 import sys
 sys.path.append('/Users/kfliu/src/HeyseForms/src')
-from sheets_api import sheets
+import sheets_api as gsheets
 from redmail import gmail
 
 
@@ -14,7 +14,7 @@ def setup():
     )
 
 def supervisor_reminder():
-    email_list = sheets.get_supervisor_email_list()
+    email_list = gsheets.get_supervisor_email_list()
     for email in email_list:
         one_list = [email]
         gmail.send(
