@@ -225,7 +225,7 @@ def update_spreadsheet_link():
 
 @app.errorhandler(Exception) 
 def invalid_route(e): 
-    uniqname_user = "atharvak"
+    uniqname_user = session['user']['sub']
     my_error=str(e)
     print(my_error)
     return render_template(
