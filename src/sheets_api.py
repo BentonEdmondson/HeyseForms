@@ -171,13 +171,14 @@ def get_all_interns() -> list:
         check_set = set()
         result = []
         for supervisor in supervisors:
-            interns = supervisor["Interns"].split(", ")
-            for intern in interns:
-                if intern not in check_set:
-                    check_set.add(intern)
-                    result.append({
-                        "uniqname": intern
-                    })
+            if "Interns" in supervisor:
+                interns = supervisor["Interns"].split(", ")
+                for intern in interns:
+                    if intern not in check_set:
+                        check_set.add(intern)
+                        result.append({
+                            "uniqname": intern
+                        })
         return result
     except Exception as e:
         raise e
