@@ -29,11 +29,13 @@
 					<div id="Entry {{ loop.index }}" class="tabcontent">
 						<dl>
 							{% for question, answer in entry.items() %}
-								<div class="response">
-									<dt>{{ question }}</dt>
-									<dd>{{ answer }}</dd>
-								</div>
-								<br>
+								{% if answer %}
+									<div class="response">
+										<dt>{{ question }}</dt>
+										<dd>{{ answer }}</dd>
+									</div>
+									<br>
+								{% endif %}
 							{% endfor %}
 						</dl>
 					</div>
