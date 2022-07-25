@@ -69,7 +69,8 @@ def must_be_loggedin(func):
             return redirect('/noauth')
         elif session['data'] is None:
             return redirect('/noauth')
-        elif len(kwargs) == 1:
+        print(kwargs)
+        if len(kwargs) == 1:
             return func(kwargs.get('uniqname'))
         elif len(kwargs) == 2:
             return func(kwargs.get('uniqname'), kwargs.get('entry'))
