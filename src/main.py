@@ -250,6 +250,7 @@ def update_spreadsheet_link():
 
 
 @app.errorhandler(Exception) 
+@must_be_loggedin
 def invalid_route(e): 
     uniqname_user = session['user']['sub']
     print(e)
@@ -261,6 +262,7 @@ def invalid_route(e):
 
 
 @app.route('/documentations', methods=['GET'])
+@must_be_loggedin
 def get_documentations():
     uniqname_user = session['user']['sub']
     return render_template(
