@@ -13,10 +13,14 @@ from decouple import config
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+PRIVATE_KEY = f'''-----BEGIN PRIVATE KEY-----
+{config('private_key')}
+-----END PRIVATE KEY-----'''
+
 SERVICE_ACCOUNT_INFO = {"type": config('type'),
                         "project_id": config('project_id'),
                         "private_key_id": config('private_key_id'),
-                        "private_key": config('private_key'),
+                        "private_key": PRIVATE_KEY,
                         "client_email": config('client_email'),
                         "client_id": config('client_id'),
                         "auth_uri": config('auth_uri'),
