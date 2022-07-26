@@ -26,7 +26,7 @@ def check_credentials(func):
         creds = None
         if os.path.exists(SERVICE_ACCOUNT_FILE):
             creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-            print(creds)
+            print(SERVICE_ACCOUNT_FILE)
             try:
                 return func(creds=creds, *args, **kwargs)
             except HttpError as err:
