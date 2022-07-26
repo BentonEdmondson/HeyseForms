@@ -13,14 +13,10 @@ from decouple import config
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-PRIVATE_KEY = f'''-----BEGIN PRIVATE KEY-----
-{config('private_key')}
------END PRIVATE KEY-----'''
-
 SERVICE_ACCOUNT_INFO = {"type": config('type'),
                         "project_id": config('project_id'),
                         "private_key_id": config('private_key_id'),
-                        "private_key": PRIVATE_KEY,
+                        "private_key": config('private_key'),
                         "client_email": config('client_email'),
                         "client_id": config('client_id'),
                         "auth_uri": config('auth_uri'),
@@ -28,6 +24,7 @@ SERVICE_ACCOUNT_INFO = {"type": config('type'),
                         "auth_provider_x509_cert_url": config('auth_provider_x509_cert_url'),
                         "client_x509_cert_url": config('client_x509_cert_url')}
 
+print(config('private_key'))
 # The ID of HeyseForms sample spreadsheet.
 HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
 EMAIL_COLUMN_NAME = "Email Address"
