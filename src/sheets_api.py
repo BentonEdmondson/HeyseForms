@@ -13,7 +13,19 @@ from decouple import config
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-SERVICE_ACCOUNT_FILE = 'service.json'
+PRIVATE_KEY = f"-----BEGIN PRIVATE KEY-----\n{config('private_key')}\n-----END PRIVATE KEY-----\n"
+PRIVATE_KEY = PRIVATE_KEY.replace(r'\\','\\') 
+PRIVATE_KEY = PRIVATE_KEY.replace(r'\n', '\n')
+SERVICE_ACCOUNT_INFO = {"type": config('type'),
+                        "project_id": config('project_id'),
+                        "private_key_id": config('private_key_id'),
+                        "private_key": PRIVATE_KEY,
+                        "client_email": config('client_email'),
+                        "client_id": config('client_id'),
+                        "auth_uri": config('auth_uri'),
+                        "token_uri": config('token_uri'),
+                        "auth_provider_x509_cert_url": config('auth_provider_x509_cert_url'),
+                        "client_x509_cert_url": config('client_x509_cert_url')}
 
 # The ID of HeyseForms sample spreadsheet.
 HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
@@ -24,16 +36,11 @@ INTERNSHIP_START_DATE = date(2022,5,2)
 def check_credentials(func):
     def wrapper(*args, **kwargs):
         creds = None
-        if os.path.exists(SERVICE_ACCOUNT_FILE):
-            creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-            print(SERVICE_ACCOUNT_FILE)
-            try:
-                return func(creds=creds, *args, **kwargs)
-            except HttpError as err:
-                raise Exception(f"Error while requesting Google Sheet API. Reason: {err.reason}")
-        
-        raise Exception("Could not find service account credentials.")
-
+        creds = service_account.Credentials.from_service_account_info(SERVICE_ACCOUNT_INFO, scopes=SCOPES)
+        try:
+            return func(creds=creds, *args, **kwargs)
+        except HttpError as err:
+            raise Exception(f"Error while requesting Google Sheet API. Reason: {err.reason}")
     return wrapper
 
 
