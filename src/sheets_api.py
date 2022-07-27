@@ -27,7 +27,6 @@ SERVICE_ACCOUNT_INFO = {"type": config('type'),
                         "auth_provider_x509_cert_url": config('auth_provider_x509_cert_url'),
                         "client_x509_cert_url": config('client_x509_cert_url')}
 
-print(PRIVATE_KEY)
 # The ID of HeyseForms sample spreadsheet.
 HEYSE_FORMS_SAMPLE_SPREADSHEET_ID = '1ymUE8AJEEyXvfLML8PNVbs-sI3poYKq1Vw2_HKTR4qw'
 EMAIL_COLUMN_NAME = "Email Address"
