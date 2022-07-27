@@ -15,7 +15,7 @@ from decouple import config
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 PRIVATE_KEY = f"-----BEGIN PRIVATE KEY-----\n{config('private_key')}\n-----END PRIVATE KEY-----\n"
 PRIVATE_KEY = PRIVATE_KEY.replace(r'\\','\\') 
-
+PRIVATE_KEY = PRIVATE_KEY.replace(r'\n', '\n')
 SERVICE_ACCOUNT_INFO = {"type": config('type'),
                         "project_id": config('project_id'),
                         "private_key_id": config('private_key_id'),
