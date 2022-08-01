@@ -130,7 +130,7 @@ def get_homeadmin():
 @must_be_loggedin
 def get_default_response(uniqname: str):
     entries = gsheets.get_intern_entries(intern_email=uniqname + "@umich.edu")
-    latest_entry_index = len(entries)
+    latest_entry_index = str(len(entries))
     return redirect('/responses/' + uniqname + '/' + latest_entry_index)
 
 
