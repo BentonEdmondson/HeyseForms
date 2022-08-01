@@ -129,7 +129,9 @@ def get_homeadmin():
 @app.route('/responses/<uniqname>', methods=['GET'])
 @must_be_loggedin
 def get_default_response(uniqname: str):
-    return redirect('/responses/' + uniqname + '/1')
+    entries = gsheets.get_intern_entries(intern_email=uniqname + "@umich.edu")
+    latest_entry_index = str(len(entries))
+    return redirect('/responses/' + uniqname + '/' + latest_entry_index)
 
 
 @app.route('/responses/<uniqname>/<entry>', methods=['GET'])
