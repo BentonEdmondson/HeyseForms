@@ -1,13 +1,15 @@
 from http.client import responses
 from flask import Flask, Blueprint, render_template, redirect, request, url_for, session
+from flask_crontab import Crontab
 from authlib.integrations.flask_client import OAuth
 from decouple import config
+import send_email
 import sheets_api as gsheets
 import requests
 import re
 
 app = Flask(__name__, template_folder="./templates")
-
+crontab = Crontab(app)
 app.secret_key = '!secret'
 
 CONF_URL = 'https://shibboleth.umich.edu/.well-known/openid-configuration'
@@ -25,6 +27,11 @@ oauth.register(
         "scope": "openid profile email offline_access edumember eduperson"
     }
 )
+
+@crontab.job(minute="0", hour="17", day_of_week="FRI")
+def schedule_email_reminder():
+    send_email.setup()
+    send_email.send_reminder_email()
 
 @app.route('/login')
 def login():
